@@ -163,7 +163,7 @@ app.get('/appointment/:id', async (req, res) => {
     // Retrieve the doctor with the specified ID
     const doctor = await Doctor.findById(req.params.id);
     // Render the doctor details page and pass the doctor data to the template
-    res.render('appointment', { doctor,username:req.session.name });
+    res.render('appointment', { doctor,username:req.session.name,userId:req.session.userId});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });
@@ -177,6 +177,7 @@ app.post("/appointment", async (req, res) => {
  try {
   const {
     datePicker,
+    patient_Id,
     patientName,
     doctorName,
     doctorLocation,
@@ -186,7 +187,8 @@ app.post("/appointment", async (req, res) => {
 
   const existingAppointment = await Appointment.findOne({
     patientName: patientName,
-    doctorName: doctorName
+    doctorName: doctorName,
+    patient_Id:patient_Id
   });
   if (existingAppointment) {
     res.status(409).send("Appointment already booked for this patient and doctor.");
@@ -195,6 +197,7 @@ app.post("/appointment", async (req, res) => {
       doctorName: doctorName,
       doctorSpecialization: doctorSpecialization,
       patientName: patientName,
+      patient_Id:patient_Id,
       time: consultationTime,
       date: datePicker,
       location: doctorLocation
@@ -202,6 +205,7 @@ app.post("/appointment", async (req, res) => {
     console.log(doctorName);
     console.log(doctorSpecialization);
     console.log(patientName);
+    console.log(patient_Id);
     const booked = await bookAppointment.save();
     console.log(booked);
     res.status(201).send("Appointment booked successfully!");
@@ -220,7 +224,7 @@ app.get("/patientview/:userId", async (req, res) => {
   const userId = req.params.userId;
   const userName = req.session.name;
   try {
-    const appointments = await Appointment.find({ patientName: userName });
+    const appointments = await Appointment.find({ patient_Id: userId});
     res.render("patientview", { appointments: appointments,name:req.session.name });
   } catch (err) {
     console.log(err);

@@ -58,6 +58,7 @@ datePicker.value = formattedDate;
 
     // Get the appointment data from the form
     const datePicker = document.getElementById('date-picker');
+    const patient_Id="{{userId}}";
     const patientName = "{{username}}";
     const doctorName = "{{doctor.name}}";
     const doctorLocation = "{{doctor.location}}";
@@ -71,6 +72,7 @@ datePicker.value = formattedDate;
       },
       body: JSON.stringify({
         datePicker: datePicker.value,
+        patient_Id,
         patientName,                                                
         doctorName,
         doctorLocation,
