@@ -105,9 +105,11 @@ app.post('/login', async (req, res) => {
          res.status(201).render('search',{name: name,userId: userId});
       }}
       else if(doctoremail != null){
-       if (doctoremail.password === password) {
-        res.status(201).render('doctorview');
-     }}
+        if (doctoremail.password === password) {
+         const doctorName=doctoremail.name
+         res.status(201).redirect('/doctorview/' + encodeURIComponent(doctorName));
+         //res.render('doctorview', { appointments: appointments, doctorName: doctorName });
+      }}
       else{
         res.send("Invalid login details");
       }
@@ -152,15 +154,22 @@ app.get('/logout', function(req, res){
       return res.render("doctors", { doctors: [] });
     }
     const doctors = await Doctor.find({
-      $or: [
-        { name: { $regex: searchRegex } },
-        { specialization: { $regex: searchRegex } },
-        { field: { $regex: searchRegex } },
-        { $and: [
-          { specialization: { $regex: searchRegex } },
-          { field: { $regex: searchRegex } }
-        ]}
-      ]
+      $and: [
+        { availability: true},
+        {
+          $or: [
+            { name: { $regex: searchRegex } },
+            { specialization: { $regex: searchRegex } },
+            { field: { $regex: searchRegex } },
+            {
+              $and: [
+                { specialization: { $regex: searchRegex } },
+                { field: { $regex: searchRegex } },
+              ],
+            },
+          ],
+        },
+      ],
     });
     return res.render("doctors", { doctors, username:req.session.name });
   } catch (err) {
@@ -168,9 +177,6 @@ app.get('/logout', function(req, res){
     return res.status(500).json({ message: "Internal server error" });
   }
 });
-    
-
-
 
 
 
@@ -191,6 +197,9 @@ app.get('/appointment/:id', async (req, res) => {
 
 
 //Book Appointment
+//let counter = 0;
+
+
 app.post("/appointment", async (req, res) => {
  try {
   const {
@@ -200,7 +209,8 @@ app.post("/appointment", async (req, res) => {
     doctorName,
     doctorLocation,
     consultationTime,
-    doctorSpecialization
+    doctorSpecialization,
+    
   } = req.body;
 
   const existingAppointment = await Appointment.findOne({
@@ -212,6 +222,7 @@ app.post("/appointment", async (req, res) => {
     res.status(409).send("Appointment already booked for this patient and doctor.");
   } else {
     const bookAppointment = new Appointment({
+      //token:counter++,
       doctorName: doctorName,
       doctorSpecialization: doctorSpecialization,
       patientName: patientName,
@@ -248,6 +259,21 @@ app.get("/patientview/:userId", async (req, res) => {
     console.log(err);
   }
 });
+//Appointment view by doctor
+app.get("/doctorview/:name", async (req, res) => {
+  const doctorName = req.params.name;
+  try {
+    const appointments = await Appointment.find({ doctorName: doctorName });
+    res.render("doctorview", { appointments: appointments,doctorName: doctorName });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+
+
 
 
 
