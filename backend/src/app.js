@@ -12,6 +12,14 @@ const templates_path = path.join(__dirname, "../templates/views");
 const partials_path = path.join(__dirname, "../templates/partials");
 //const passport = require('passport');
 
+const moment = require('moment');
+
+// Define a Handlebars helper to format a date using Moment.js
+hbs.registerHelper('formatDate', function(date) {
+  return moment(date).format('MMM D, YYYY');
+});
+
+
 app.use(session({
   secret: 'your-secret-key',
   resave: false,

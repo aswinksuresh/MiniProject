@@ -29,9 +29,16 @@
         <h2>Upcoming Appointments</h2>
          <ul>
       {{#each appointments}}
-        <li>{{this.date}} {{this.time}} - {{this.doctorName}}</li>
+        <li>{{formatDate this.date}} {{this.time}} - {{this.doctorName}}</li>
       {{/each}}
     </ul>
     </div>
+    <script>
+  function formatDate(date) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+    return formattedDate;
+  }
+</script>
 </body>
 </html>
