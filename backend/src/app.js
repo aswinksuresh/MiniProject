@@ -10,7 +10,7 @@ const Appointment = require("./models/appointment");
 const static_path = path.join(__dirname, "../public");
 const templates_path = path.join(__dirname, "../templates/views");
 const partials_path = path.join(__dirname, "../templates/partials");
-//const passport = require('passport');
+const passport = require('passport');
 
 const moment = require('moment');
 
@@ -30,8 +30,8 @@ app.use(session({
 
 
 // initialize passport and configure session support
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 
@@ -118,10 +118,20 @@ app.post('/login', async (req, res) => {
   });
 
 //LogOut
-app.get('/logout', (req, res) => {
+/*app.get('/logout', (req, res) => {
   req.logout(); // this method is provided by the passport module if you are using it
   req.session.destroy();
   res.redirect('/login'); // redirect to the login page after logout
+});*/
+app.get('/logout', function(req, res){
+  req.logout(function(err){
+    if(err){
+      console.log(err);
+      return next(err);
+    }
+    // Redirect to the login page after logout
+    res.redirect('/');
+  });
 });
 
 
