@@ -1,0 +1,119 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: rgba(49, 45, 45,0.5);
+    color: #fff; 
+}
+
+.sidebar img {
+    display: block;
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    position: relative;
+    top: 20px;
+}
+
+.sidebar h3 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position:relative;
+    top:50px;
+    font-size:20px;
+    text-align: center;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.sidebar ul li:hover{
+    background: rgb(61, 70, 252);
+}
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
+.card{
+    background:rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items:center;
+    padding: 50px;
+    width: 550px;
+    border-radius: 30px;
+    height: 45vh;
+    position: relative;
+    left:350px;
+    top: 50px;
+
+}
+
+
+.profile{
+    width: 120px;
+    border-radius: 50%;
+    position: relative;
+    bottom:10px ;
+    right: 20px;
+}
+.button {
+    background-color: #0c2061;
+    border:none;
+    color: rgb(255, 255, 255);
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    position: relative;
+    top:150px;
+    right:170px;
+    width: 30%;
+    height: 15%;
+    transition:transform 0.2s ease-in-out;
+  }
+  .button:hover{
+    transform: scale(1.2);
+    background-color: rgb(54, 101, 230);
+  }
+  .button:active{
+    background-color: rgb(54, 101, 230);
+    transform: translateY(4px);
+}
+.picker {
+      display: inline-block;
+      margin: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      color: #0c2061;
+    }
+
+.picker input[type="text"] {
+      width: 100px;
+      padding: 5px;
+      margin-right: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }

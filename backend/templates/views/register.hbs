@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <style>
+    body{
+        background-image: url("/css/images/homebg.png");
+        background-size: 100% 100%;  
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
+</style>
+
+  <body>
+    <div class="background"></div>
+    <div class="form">
+
+      <h1>Sign Up</h1>
+      <form action ="/register" method = "post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+        <button type="submit" >Sign Up </button>
+      </form>
+    </div>
+  </body>
+</html>
