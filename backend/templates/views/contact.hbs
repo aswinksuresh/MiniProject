@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>Contact Us</title>
+ <link rel="stylesheet" href="/css/contact.css">
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/css/images/profile6.png" alt="Profile Photo">
+        <h3>John Doe</h3>
+        <ul>
+            <li><a href="#">My Appointments</a></li>
+            <li><a href="#" onclick="window.location.href = 'home.html';">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#" onclick="window.location.href = 'contact us.html';">Contact</a></li>
+        </ul>
+    </div>
+<div class="contact-us">
+  <div class="title">
+    <h1>Contact us</h1>
+  </div>
+  <div class="form">
+    <div class="form-items">
+        <form id="contact-form">
+      <label for="name">Name</label>
+				<input type="text" id="name" name="name" required>
+      <i class="fas fa-user"></i>
+    </div>
+    <div class="form-items">
+      <label for="email">Email</label>
+				<input type="email" id="email" name="email" required>
+      <i class="fas fa-envelope"></i>
+    </div>
+    <div class="form-items">
+      <label for="message">Message</label>
+				<textarea id="message" name="message" required></textarea>
+    </div>
+  </div>
+  
+  <div class="btn">
+    <button type="submit">Submit</button>
+    <i class="fas fa-arrow-right"></i>
+  </div>
+  </div></form>
+  
+  
+  <div class="social-icons">
+    <div class="facebook">
+      <i class="fab fa-facebook-f"></i>
+    </div>
+    <div class="twitter">
+      <i class="fab fa-twitter"></i>
+    </div>
+    <div class="google">
+      <i class="fab fa-google-plus-g"></i>
+    </div>
+  </div>
+  
+</div>
+
+<script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <script>(function() {
+	emailjs.init('SCRcLmJUDkvViQtLx');
+
+	document.getElementById('contact-form').addEventListener('submit', function(event) {
+		event.preventDefault();
+		// Get input values from the form
+		var name = document.getElementById('name').value;
+		var email = document.getElementById('email').value;
+		var message = document.getElementById('message').value;
+
+		// Construct the email parameters
+		var params = {
+			to_name: 'Akash Antony',
+			from_name: name,
+			from_email: email,
+			message_html: message
+		};
+
+		// Send the email
+		emailjs.send('service_tikypbl', 'template_rqadejd', params)
+			.then(function(response) {
+				alert('Your message has been sent!');
+				document.getElementById('contact-form').reset();
+			}, function(error) {
+				alert('Oops, something went wrong. Please try again later.');
+				console.log(error);
+			});
+	});
+})();
+</script>
+
+
+</body>
+</html>

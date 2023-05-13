@@ -251,6 +251,10 @@ app.get("/patientview/:userId", async (req, res) => {
 
 
 
+//contact us
+app.get('/contact', (req, res) => {
+  res.render('contact');
+});
 
 
 
