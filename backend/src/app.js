@@ -106,7 +106,7 @@ app.post('/login', async (req, res) => {
       }}
       else if(doctoremail != null){
        if (doctoremail.password === password) {
-        res.status(201).render('register');
+        res.status(201).render('doctorview');
      }}
       else{
         res.send("Invalid login details");
