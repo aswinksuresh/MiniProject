@@ -27,31 +27,71 @@
 
     <div class="appointments">
         <h2>Upcoming Appointments</h2>
-      <table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Doctor Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each appointments}}
-    <tr>
-      <td>{{formatDate this.date}}</td>
-      <td>{{this.time}}</td>
-      <td>{{this.doctorName}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Doctor Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each appointments}}
+<tr>
+  <td>{{formatDate this.date}}</td>
+  <td>{{this.time}}</td>
+  <td>{{this.doctorName}}</td>
+  <td>
+    <form action="/cancel-appointment/{{this._id}}" method="POST">
+      <button class="cancel-button" data-appointment-id="{{this._id}}">Cancel</button>
+    </form>
+  </td>
+</tr>
+
+{{/each}}
+            </tbody>
+        </table>
     </div>
     <script>
-  function formatDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = new Date(date).toLocaleDateString('en-US', options);
-    return formattedDate;
-  }
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+            return formattedDate;
+        }
+    </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('.cancel-button').on('click', function(event) {
+    event.preventDefault();
+
+    const appointmentId = $(this).data('appointment-id');
+
+    $.ajax({
+      type: 'POST',
+      url: '/cancel-appointment/' + appointmentId,
+      success: function(data) {
+        // Update the view with the updated appointment list
+        $('#appointment-list').html(data);
+      }
+    });
+  });
+});
 </script>
+
+
+<script>
+document.querySelectorAll(".cancel-btn").forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    const appointmentId = event.target.dataset.appointmentId;
+    const response = await fetch(`/cancel-appointment/${appointmentId}`);
+    if (response.ok) {
+      event.target.closest("tr").remove();
+    }
+  });
+});
+</script>
+
 </body>
 </html>

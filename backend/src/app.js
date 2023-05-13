@@ -11,6 +11,8 @@ const static_path = path.join(__dirname, "../public");
 const templates_path = path.join(__dirname, "../templates/views");
 const partials_path = path.join(__dirname, "../templates/partials");
 const passport = require('passport');
+app.use(express.urlencoded({ extended: true }));//patient view cancel
+
 
 const moment = require('moment');
 
@@ -238,6 +240,37 @@ app.post("/appointment", async (req, res) => {
 
 
 //Appointment view by patient
+
+app.post('/cancel-appointment/:appointmentId', async (req, res) => {
+  const appointmentId = req.params.appointmentId;
+  
+  try {
+    await Appointment.findByIdAndDelete(appointmentId);
+    const userId = req.session.userId;
+    const appointments = await Appointment.find({ patient_Id: userId });
+    const html = appointments.map(appointment => {
+      return `
+        <tr>
+          <td>${formatDate(appointment.date)}</td>
+          <td>${appointment.time}</td>
+          <td>${appointment.doctorName}</td>
+          <td>
+            <form action="/cancel-appointment/${appointment._id}" method="POST">
+              <button class="cancel-button" data-appointment-id="${appointment._id}">Cancel</button>
+            </form>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    res.send(html);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+
 app.get("/patientview/:userId", async (req, res) => {
   const userId = req.params.userId;
   const userName = req.session.name;
@@ -248,6 +281,22 @@ app.get("/patientview/:userId", async (req, res) => {
     console.log(err);
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
