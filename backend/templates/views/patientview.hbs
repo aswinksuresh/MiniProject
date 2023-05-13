@@ -27,11 +27,24 @@
 
     <div class="appointments">
         <h2>Upcoming Appointments</h2>
-         <ul>
-      {{#each appointments}}
-        <li>{{formatDate this.date}} {{this.time}} - {{this.doctorName}}</li>
-      {{/each}}
-    </ul>
+      <table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Doctor Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each appointments}}
+    <tr>
+      <td>{{formatDate this.date}}</td>
+      <td>{{this.time}}</td>
+      <td>{{this.doctorName}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
     </div>
     <script>
   function formatDate(date) {
