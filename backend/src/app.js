@@ -309,24 +309,6 @@ app.get("/doctorview/:name", async (req, res) => {
   }
 });
 
-//Update availability
-app.post('/update-availability', function(req, res) {
-  // Get doctor ID from session or request parameters
-  var doctorId = req.session.doctorId || req.body.doctorId;
-
-  // Get new availability status from request body
-  var available = req.body.available;
-
-  // Update doctor availability in database
-  Doctor.updateOne({ _id: doctorId }, { availability: available }, function(err, result) {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error updating availability');
-    } else {
-      res.send('Availability updated successfully');
-    }
-  });
-});
 
 
 
@@ -349,6 +331,7 @@ app.post('/update-availability', function(req, res) {
 app.get('/contact', (req, res) => {
   res.render('contact');
 });
+
 
 
 

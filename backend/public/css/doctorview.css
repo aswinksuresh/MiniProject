@@ -226,3 +226,15 @@ body {
     font-weight: bold;
     color: green;
   }
+  .cancel-button {
+    background-color: rgb(13, 84, 44);
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .cancel-button:hover {
+    background-color: rgb(30, 135, 44);
+  }
