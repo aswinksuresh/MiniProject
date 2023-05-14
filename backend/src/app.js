@@ -12,7 +12,7 @@ const templates_path = path.join(__dirname, "../templates/views");
 const partials_path = path.join(__dirname, "../templates/partials");
 const passport = require('passport');
 app.use(express.urlencoded({ extended: true }));//patient view cancel
-
+const bodyParser = require('body-parser');
 
 const moment = require('moment');
 
@@ -255,7 +255,7 @@ app.post("/appointment", async (req, res) => {
 
 
 
-//Appointment view by patient
+//cancel appointment
 
 app.post('/cancel-appointment/:appointmentId', async (req, res) => {
   const appointmentId = req.params.appointmentId;
@@ -309,10 +309,24 @@ app.get("/doctorview/:name", async (req, res) => {
   }
 });
 
+//Update availability
+app.post('/update-availability', function(req, res) {
+  // Get doctor ID from session or request parameters
+  var doctorId = req.session.doctorId || req.body.doctorId;
 
+  // Get new availability status from request body
+  var available = req.body.available;
 
-
-
+  // Update doctor availability in database
+  Doctor.updateOne({ _id: doctorId }, { availability: available }, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.status(500).send('Error updating availability');
+    } else {
+      res.send('Availability updated successfully');
+    }
+  });
+});
 
 
 
