@@ -33,10 +33,9 @@ const appointmentSchema = new mongoose.Schema({
       required: true
     },
     token: {
-      type: String,
-      required: true,
-      unique:true
-    },
+      type: Number,
+      default: 1
+    }
   });
   appointmentSchema.index({ patientName: 1, doctorName: 1 }, { unique: true });
 const Appointment = mongoose.model("Appointment", appointmentSchema);

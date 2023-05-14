@@ -58,12 +58,28 @@ datePicker.value = formattedDate;
 
     // Get the appointment data from the form
     const datePicker = document.getElementById('date-picker');
+
+    const selectedDate = new Date(datePicker.value);
+    const today = new Date();
+
+
+
+
     const patient_Id="{{userId}}";
     const patientName = "{{username}}";
     const doctorName = "{{doctor.name}}";
     const doctorLocation = "{{doctor.location}}";
     const consultationTime = "{{doctor.time}}";
     const doctorSpecialization = "{{doctor.specialization}}";
+
+
+ if (selectedDate < today) {
+      alert('Selected date is before today\'s date. Please choose a future date.');
+      return;
+    }
+
+
+
     // Send the appointment data to the server
     fetch('/appointment', {
       method: 'POST',
@@ -81,17 +97,19 @@ datePicker.value = formattedDate;
       })
     })
     .then(response => {
-      if (response.ok) {
-        // Show a success message to the user
-        alert('Appointment booked successfully!');
-      } else {
+       if (response.ok) {
+    // Show a success message with the token to the user
+    response.text().then(msg => {
+      alert(msg);
+    });
+  }else {
         // Show an error message to the user
         alert('Failed to book appointment!');
       }
     })
     .catch(error => {
       // Show an error message to the user
-      alert('Failed to book appointment!');
+      alert('Appointment already booked!');
     });
   });
 });

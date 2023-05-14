@@ -80,9 +80,9 @@ body {
   }
   
   th {
-    background-color: #0f1f62;
+    background-color: #07113a;
     font-weight: bold;
-    color: #ddd;
+    color: #fff;
   }
   
 
@@ -146,7 +146,7 @@ body {
 }
 
 .appointments th {
-  background-color: #f2f2f2;
+  background-color: #17076e;
 }
 
 .appointments tbody tr:hover {

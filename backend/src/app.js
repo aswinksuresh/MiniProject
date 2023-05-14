@@ -114,6 +114,8 @@ app.post('/login', async (req, res) => {
       }}
       else{
         res.send("Invalid login details");
+        //res.status(401).render('login', { message: 'Invalid login details' });
+      
       }
     } catch (error) {
       console.error(error);
@@ -200,54 +202,57 @@ app.get('/appointment/:id', async (req, res) => {
 
 //Book Appointment
 //let counter = 0;
-
-
 app.post("/appointment", async (req, res) => {
- try {
-  const {
-    datePicker,
-    patient_Id,
-    patientName,
-    doctorName,
-    doctorLocation,
-    consultationTime,
-    doctorSpecialization,
-    
-  } = req.body;
+  try {
+    const {
+      datePicker,
+      patient_Id,
+      patientName,
+      doctorName,
+      doctorLocation,
+      consultationTime,
+      doctorSpecialization,
+    } = req.body;
 
-  const existingAppointment = await Appointment.findOne({
-    patientName: patientName,
-    doctorName: doctorName,
-    patient_Id:patient_Id
-  });
-  if (existingAppointment) {
-    res.status(409).send("Appointment already booked for this patient and doctor.");
-  } else {
-    const bookAppointment = new Appointment({
-      //token:counter++,
-      doctorName: doctorName,
-      doctorSpecialization: doctorSpecialization,
+    const existingAppointment = await Appointment.findOne({
       patientName: patientName,
-      patient_Id:patient_Id,
-      time: consultationTime,
-      date: datePicker,
-      location: doctorLocation
+      doctorName: doctorName,
+      patient_Id: patient_Id,
     });
-    console.log(doctorName);
-    console.log(doctorSpecialization);
-    console.log(patientName);
-    console.log(patient_Id);
-    const booked = await bookAppointment.save();
-    console.log(booked);
-    res.status(201).send("Appointment booked successfully!");
-  }
-} catch (error) {
-  console.log(error);
-  res.status(400).send("Failed to book appointment!");
-  console.log(error.errors);
-}
+    if (existingAppointment) {
+      res
+        .status(409)
+        .send("Appointment already booked for this patient and doctor.");
+    } else {
+      // find the count of existing appointments for the same doctor and date
+      const existingCount = await Appointment.countDocuments({
+        doctorName: doctorName,
+        date: datePicker,
+      });
+      const token = existingCount + 1;
 
+      const bookAppointment = new Appointment({
+        token: token,
+        doctorName: doctorName,
+        doctorSpecialization: doctorSpecialization,
+        patientName: patientName,
+        patient_Id: patient_Id,
+        time: consultationTime,
+        date: datePicker,
+        location: doctorLocation,
+      });
+      const booked = await bookAppointment.save();
+      console.log(booked);
+
+      res.status(201).send(`Appointment booked successfully! Token No: ${token}`);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Already has an appointment!");
+    console.log(error.errors);
+  }
 });
+
 
 
 //Appointment view by patient
@@ -281,7 +286,7 @@ app.post('/cancel-appointment/:appointmentId', async (req, res) => {
 });
 
 
-
+//Appointment view by patient
 app.get("/patientview/:userId", async (req, res) => {
   const userId = req.params.userId;
   const userName = req.session.name;
