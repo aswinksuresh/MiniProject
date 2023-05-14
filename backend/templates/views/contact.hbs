@@ -1,82 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
- <meta charset="UTF-8">
- <title>Contact Us</title>
- <link rel="stylesheet" href="/css/contact.css">
- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-</head>
-<body>
-    <div class="sidebar">
-        <img src="/css/images/profile6.png" alt="Profile Photo">
-        <h3>John Doe</h3>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/css/contact.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <img src="/css/images/profile6.png" alt="profile picture" />
         <ul>
-            <li><a href="#">My Appointments</a></li>
-            <li><a href="#" onclick="window.location.href = 'home.html';">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#" onclick="window.location.href = 'contact us.html';">Contact</a></li>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
-    </div>
-<div class="contact-us">
-  <div class="title">
-    <h1>Contact us</h1>
-  </div>
-  <div class="form">
-    <div class="form-items">
-        <form id="contact-form">
-      <label for="name">Name</label>
-				<input type="text" id="name" name="name" required>
-      <i class="fas fa-user"></i>
-    </div>
-    <div class="form-items">
-      <label for="email">Email</label>
-				<input type="email" id="email" name="email" required>
-      <i class="fas fa-envelope"></i>
-    </div>
-    <div class="form-items">
-      <label for="message">Message</label>
-				<textarea id="message" name="message" required></textarea>
-    </div>
-  </div>
-  
-  <div class="btn">
-    <button type="submit">Submit</button>
-    <i class="fas fa-arrow-right"></i>
-  </div>
-  </div></form>
-  
-  
-  <div class="social-icons">
-    <div class="facebook">
-      <i class="fab fa-facebook-f"></i>
-    </div>
-    <div class="twitter">
-      <i class="fab fa-twitter"></i>
-    </div>
-    <div class="google">
-      <i class="fab fa-google-plus-g"></i>
-    </div>
-  </div>
-  
-</div>
+      </aside>
 
-<script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+      <main class="main-content">
+        <div class="contact-us">
+          <div class="title">
+            <h1>Contact Us</h1>
+          </div>
+          <form class="contact-form" id="contact-form" action="/contact" method="GET">
+            <div class="form-items">
+              
+              <input
+                type="text"
+                name="name"
+                id="name"
+                class="input"
+                placeholder="Your Name"
+                required
+              />
+            </div>
+            <div class="form-items">
+              
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="input"
+                placeholder="Your Email"
+                required
+              />
+            </div>
+            <div class="form-items">
+              
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                class="input"
+                placeholder="Your Phone Number"
+              />
+            </div>
+            <div class="form-items">
+              
+              <textarea
+                name="message"
+                class="input message"
+                id="message"
+                placeholder="Your Message"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn">
+              Submit <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+          <div class="social-icons">
+            <div class="facebook">
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </div>
+            <div class="twitter">
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+            <div class="google">
+              <a href="#">
+                <i class="fab fa-google"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
     <script>(function() {
 	emailjs.init('SCRcLmJUDkvViQtLx');
-
-	document.getElementById('contact-form').addEventListener('submit', function(event) {
+var form = document.querySelector('#contact-form');
+console.log(form);
+	form.addEventListener('submit', function(event) {
 		event.preventDefault();
 		// Get input values from the form
 		var name = document.getElementById('name').value;
 		var email = document.getElementById('email').value;
+    var phone = document.getElementById('phone').value;
 		var message = document.getElementById('message').value;
+
 
 		// Construct the email parameters
 		var params = {
 			to_name: 'Akash Antony',
 			from_name: name,
 			from_email: email,
-			message_html: message
+      from_phone: phone,
+      message_html: message
 		};
 
 		// Send the email
@@ -91,7 +126,5 @@
 	});
 })();
 </script>
-
-
-</body>
+  </body>
 </html>
