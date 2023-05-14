@@ -1,107 +1,70 @@
+body {
+  background-image: url("/css/images/home6.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: rgba(49, 45, 45,0.5);
-    color: #fff; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: rgba(49, 45, 45,0.5);
+  color: #fff; 
 }
 
 .sidebar img {
-    display: block;
-    margin: 0 auto;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    position: relative;
-    top: 20px;
+  display: block;
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: relative;
+  top: 20px;
 }
 
 .sidebar h3 {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 0;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0;
 }
 
-
 .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position:relative;
-    top:50px;
-    font-size:15px;
-    text-align: center;
-    row-gap:0.7;
-
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: 50px;
+  font-size: 15px;
+  text-align: center;
+  row-gap: 0.7;
 }
 
 .sidebar li {
-    margin-bottom: 10px;
-    font-size: 22px;
+  margin-bottom: 10px;
+  font-size: 22px;
 }
 
 .sidebar li a {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
+.sidebar ul li:hover {
+  background: rgb(61, 70, 252);
+}
 
-.sidebar ul li:hover{
-    background: rgb(61, 70, 252);
-}
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-}
 .appointments {
-    margin-left: 300px; /* adjust the value based on your layout */
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-  }
-  
-  .appointments h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .appointments ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .appointments li {
-    font-size: 18px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* change the box-shadow color and alpha value */
-    padding: 10px;
-    background-color:rgba(255, 255, 255, 0.5);
-  }
-  
-  .appointments .date {
-    font-weight: bold;
-    margin-bottom: 15px;
-    padding: 70px;
-    margin-right: 100px;
-  }
-  
-  .appointments .time {
-    margin-bottom: 15px;
-    margin-left: 70px;
-  }
-  
-  .appointments .doctor {
-    font-style: italic;
-    margin-top: 15px;
-    margin-left: 70px;
-  }
-  
+  margin-left: 300px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
 
   table {
     font-family: Arial, sans-serif;
@@ -164,3 +127,42 @@
       text-transform: uppercase;
     }
   }
+
+.appointments h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.appointments table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointments th,
+.appointments td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.appointments th {
+  background-color: #f2f2f2;
+}
+
+.appointments tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.cancel-button {
+  background-color: rgb(221, 17, 17);
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: rgb(255, 0, 0);
+}
+
