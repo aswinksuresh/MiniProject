@@ -39,6 +39,7 @@
                     <th>Time</th>
                     <th>Patient Name</th>
                     <th>Token</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +49,9 @@
                     <td>{{this.time}}</td>
                     <td>{{this.patientName}}</td>
                     <td>{{this.token}}</td>
+                    <td> <form action="/cancel-appointment/{{this._id}}" method="POST">
+      <button class="cancel-button" data-appointment-id="{{this._id}}">Complete</button>
+    </form></td>
                 </tr>
             {{/each}}
             </tbody>
@@ -65,6 +69,46 @@
             const formattedDate = new Date(date).toLocaleDateString('en-US', options);
             return formattedDate;
         }
+
+
+
+$(document).ready(function() {
+  $('.cancel-button').on('click', function(event) {
+    event.preventDefault();
+
+    const appointmentId = $(this).data('appointment-id');
+
+    $.ajax({
+      type: 'POST',
+      url: '/cancel-appointment/' + appointmentId,
+      success: function(data) {
+        // Update the view with the updated appointment list
+        $('#appointment-list').html(data);
+      }
+    });
+  });
+});
+
+
+document.querySelectorAll(".cancel-btn").forEach((btn) => {
+  btn.addEventListener("click", async (event) => {
+    const appointmentId = event.target.dataset.appointmentId;
+    const response = await fetch(`/cancel-appointment/${appointmentId}`);
+    if (response.ok) {
+      event.target.closest("tr").remove();
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
        $(document).ready(function() {
   // Add event listener to the toggle switch
   $('#availability-toggle').on('change', function() {
