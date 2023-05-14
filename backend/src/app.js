@@ -97,6 +97,7 @@ app.post('/login', async (req, res) => {
       const password = req.body.password;
      const useremail = await Register.findOne({email:email});
       const doctoremail = await Doctor.findOne({email:email});
+
       //console.log(doctoremail.password);
       if(useremail != null){
       if (useremail.password === password) {
@@ -109,6 +110,7 @@ app.post('/login', async (req, res) => {
       else if(doctoremail != null){
         if (doctoremail.password === password) {
          const doctorName=doctoremail.name
+         const doctorId = doctoremail._id;
          res.status(201).redirect('/doctorview/' + encodeURIComponent(doctorName));
          //res.render('doctorview', { appointments: appointments, doctorName: doctorName });
       }}
@@ -310,22 +312,18 @@ app.get("/doctorview/:name", async (req, res) => {
 });
 
 //Update availability
-app.post('/update-availability', function(req, res) {
-  // Get doctor ID from session or request parameters
-  var doctorId = req.session.doctorId || req.body.doctorId;
-
-  // Get new availability status from request body
-  var available = req.body.available;
-
-  // Update doctor availability in database
-  Doctor.updateOne({ _id: doctorId }, { availability: available }, function(err, result) {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error updating availability');
-    } else {
-      res.send('Availability updated successfully');
-    }
+app.post('/update-availability', (req, res) => {
+  const { doctorName, available } = req.body;
+  Doctor.updateOne({ name: doctorName }, { availability: available })
+  .then(result => {
+    console.log('Result:', result);
+    res.status(200).send('Doctor availability status updated');
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).send('Error updating doctor availability status');
   });
+
 });
 
 

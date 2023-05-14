@@ -53,9 +53,11 @@
             </tbody>
         </table>
     </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-       
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    
+
+       <script>
         console.log('Script loaded!');
         
         function formatDate(date) {
@@ -70,23 +72,30 @@
     updateAvailability();
   });
 
-  function updateAvailability() {
-    // Get current availability status
-    var available = $('#availability-toggle').prop('checked');
+ function updateAvailability() {
+  // Get current availability status
+  var available = $('#availability-toggle').prop('checked');
+  console.log('Availability status:', available);
+  // Get doctor's name from template
+  var doctorName = '{{doctorName}}';
+  console.log('Doctor name:', doctorName);
+  // Update availability status in database
+  $.ajax({
+    method: 'POST',
+    url: '/update-availability',
+    data: { available: available, doctorName: doctorName }
+  }).done(function(response) {
+    // Display availability status on page
+    if (available) {
+      $('#availability-status').text('Available');
+    } else {
+      $('#availability-status').text('Unavailable');
+    }
+  });
+}
 
-    // Update availability status in database
-    $.ajax({
-      method: 'POST',
-      url: '/update-availability',
-      data: { available: available }
-    }).done(function(response) {
-      // Display availability status on page
-      if (available) {
-        $('#availability-status').text('Available');
-      } else {
-        $('#availability-status').text('Unavailable');
-      }
-    });
-  }
+
+
+
 });
    </script>
