@@ -31,7 +31,6 @@ app.use(session({
 
 
 
-// initialize passport and configure session support
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -86,11 +85,7 @@ app.get("/login", (req, res)=>{
 })
 
 
-/*app.get("/doctors", (req, res)=>{
-  const name = req.session.name;
-  res.render('doctors', {name: name});
-})*/
-//Login
+
 app.post('/login', async (req, res) => { 
     try {
       const email = req.body.email;
@@ -114,7 +109,7 @@ app.post('/login', async (req, res) => {
       }}
       else{
         res.send("Invalid login details");
-        //res.status(401).render('login', { message: 'Invalid login details' });
+       
       
       }
     } catch (error) {
@@ -123,12 +118,7 @@ app.post('/login', async (req, res) => {
     }
   });
 
-//LogOut
-/*app.get('/logout', (req, res) => {
-  req.logout(); // this method is provided by the passport module if you are using it
-  req.session.destroy();
-  res.redirect('/login'); // redirect to the login page after logout
-});*/
+
 app.get('/logout', function(req, res){
   req.logout(function(err){
     if(err){
@@ -141,7 +131,7 @@ app.get('/logout', function(req, res){
 });
 
 
-  //getting user name
+
   
   
 
@@ -149,7 +139,7 @@ app.get('/logout', function(req, res){
 
 
   //Search functionality for doctor
- // assuming you have defined a GET route to handle the /doctors search query
+
  app.get("/doctors", async (req, res) => {
   try {
     const searchParam = req.query.field.trim();
@@ -201,7 +191,7 @@ app.get('/appointment/:id', async (req, res) => {
 
 
 //Book Appointment
-//let counter = 0;
+
 app.post("/appointment", async (req, res) => {
   try {
     const {
@@ -224,7 +214,7 @@ app.post("/appointment", async (req, res) => {
         .status(409)
         .send("Appointment already booked for this patient and doctor.");
     } else {
-      // find the count of existing appointments for the same doctor and date
+  
       const existingCount = await Appointment.countDocuments({
         doctorName: doctorName,
         date: datePicker,
