@@ -21,6 +21,7 @@ body{
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
 }
 
 .title h1{
@@ -175,4 +176,3 @@ body{
   background: rgb(61, 70, 252);
   transition: all 0.3s ease-in-out;
 }
-
