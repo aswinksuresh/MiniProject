@@ -49,14 +49,23 @@
                     <td>{{this.time}}</td>
                     <td>{{this.patientName}}</td>
                     <td>{{this.token}}</td>
+<<<<<<< HEAD
                     <td> <form action="/cancel-appointment/{{this._id}}" method="POST">
       <button class="cancel-button" data-appointment-id="{{this._id}}">Complete</button>
     </form></td>
+=======
+                     <td>
+    <form action="/cancel-appointment/{{this._id}}" method="POST">
+      <button class="cancel-button" data-appointment-id="{{this._id}}">Complete</button>
+    </form>
+  </td>
+>>>>>>> refs/remotes/origin/master
                 </tr>
             {{/each}}
             </tbody>
         </table>
     </div>
+<<<<<<< HEAD
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
     
@@ -64,11 +73,15 @@
        <script>
         console.log('Script loaded!');
         
+=======
+    <script>  
+>>>>>>> refs/remotes/origin/master
         function formatDate(date) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const formattedDate = new Date(date).toLocaleDateString('en-US', options);
             return formattedDate;
         }
+<<<<<<< HEAD
 
 
 
@@ -143,3 +156,8 @@ document.querySelectorAll(".cancel-btn").forEach((btn) => {
 
 });
    </script>
+=======
+ </script>
+</body>
+</html>
+>>>>>>> refs/remotes/origin/master

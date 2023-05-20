@@ -226,6 +226,7 @@ body {
     font-weight: bold;
     color: green;
   }
+<<<<<<< HEAD
 
   .cancel-button {
     background-color: rgb(13, 84, 44);
@@ -239,3 +240,5 @@ body {
   .cancel-button:hover {
     background-color: rgb(30, 135, 44);
   }
+=======
+>>>>>>> refs/remotes/origin/master
