@@ -1,232 +1,236 @@
 body {
-    background-image: url("/css/images/home6.jpg");
-    background-size: 100% 100%;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-  }
-  
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: rgba(49, 45, 45,0.5);
-    color: #fff; 
-  }
-  
-  .sidebar img {
-    display: block;
-    margin: 0 auto;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    position: relative;
-    top: 20px;
-  }
-  
-  .sidebar h3 {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 0;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    top: 50px;
-    font-size: 15px;
-    text-align: center;
-    row-gap: 0.7;
-  }
-  
-  .sidebar li {
-    margin-bottom: 10px;
-    font-size: 22px;
-  }
-  
-  .sidebar li a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .sidebar ul li:hover {
-    background: rgb(61, 70, 252);
-  }
-  
-  .appointments {
-    margin-left: 300px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-  }
-  
-  
-    table {
-      font-family: Arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-      margin: 20px auto;
-    }
-    
-    td, th {
-      border: 2px solid #f1f0f5;
-      text-align: left;
-      padding: 8px;
-    }
-    
-    th {
-      background-color: #0f1f62;
-      font-weight: bold;
-      color: #ddd;
-    }
-    
-  
-    
-    @media screen and (max-width: 600px) {
-      table {
-        border: 0;
-      }
-    
-      table caption {
-        font-size: 1.3em;
-      }
-      
-      table thead {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-      }
-      
-      table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
-      }
-      
-      table td {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: right;
-      }
-      
-      table td::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
-    }
-  
-  .appointments h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .appointments table {
-    width: 100%;
+  background-image: url("/css/images/home6.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: rgba(49, 45, 45,0.5);
+  color: #fff; 
+}
+
+.sidebar img {
+  display: block;
+  margin: 0 auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: relative;
+  top: 20px;
+}
+
+.sidebar h3 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: 50px;
+  font-size: 15px;
+  text-align: center;
+  row-gap: 0.7;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.sidebar li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar ul li:hover {
+  background: rgb(61, 70, 252);
+}
+
+.appointments {
+  margin-left: 300px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+
+  table {
+    font-family: Arial, sans-serif;
     border-collapse: collapse;
+    width: 100%;
+    margin: 20px auto;
   }
   
-  .appointments th,
-  .appointments td {
-    padding: 8px;
+  td, th {
+    border: 2px solid #f1f0f5;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    padding: 8px;
   }
   
-  .appointments th {
-    background-color: #170b98;
-  }
-  
-  .appointments tbody tr:hover {
-    background-color: #f5f5f5;
-  }
-  .switch {
-    position: relative;
-    left:90px;
-    top: 25px;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #f61010;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: rgb(252, 249, 249);
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #0c7406;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #03842e;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
-  p{
-         position: relative;
-         top: 30px;
-         left: 70px;
-  }
-  #availability {
-    display: inline-block;
-    margin-left: 10px;
+  th {
+    background-color: #0f1f62;
     font-weight: bold;
-    color: green;
+    color: #ddd;
+  }
+  
+
+  
+  @media screen and (max-width: 600px) {
+    table {
+      border: 0;
+    }
+  
+    table caption {
+      font-size: 1.3em;
+    }
+    
+    table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    
+    table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+    
+    table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+    
+    table td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   }
 
+.appointments h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.appointments table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.appointments th,
+.appointments td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.appointments th {
+  background-color: #170b98;
+}
+
+.appointments tbody tr:hover {
+  background-color: #f5f5f5;
+}
+.switch {
+  position: relative;
+  left:90px;
+  top: 25px;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f61010;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgb(252, 249, 249);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #0c7406;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #03842e;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+p{
+       position: relative;
+       top: 30px;
+       left: 70px;
+}
+#availability {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: bold;
+  color: green;
+}
+
+  
+  
+  
+  
   .cancel-button {
     background-color: rgb(13, 84, 44);
     color: #fff;
