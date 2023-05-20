@@ -65,35 +65,51 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-  $('.cancel-button').on('click', function(event) {
+  $('body').on('click', '.cancel-button', function(event) {
     event.preventDefault();
 
     const appointmentId = $(this).data('appointment-id');
+    const row = $(this).closest('tr');
 
     $.ajax({
       type: 'POST',
       url: '/cancel-appointment/' + appointmentId,
-      success: function(data) {
-        // Update the view with the updated appointment list
-        $('#appointment-list').html(data);
+      success: function(appointments) {
+        // Remove the canceled appointment row from the table
+        row.remove();
+
+        // Optional: Perform any other necessary updates using the updated appointment list
+      },
+      error: function(err) {
+        console.log(err);
       }
     });
   });
 });
-</script>
 
+$(document).ready(function() {
+  // Add event listener to the cancel button
+  document.querySelectorAll(".cancel-button").forEach((btn) => {
+    btn.addEventListener("click", async (event) => {
+      event.preventDefault();
 
-<script>
-document.querySelectorAll(".cancel-btn").forEach((btn) => {
-  btn.addEventListener("click", async (event) => {
-    const appointmentId = event.target.dataset.appointmentId;
-    const response = await fetch(`/cancel-appointment/${appointmentId}`);
-    if (response.ok) {
-      event.target.closest("tr").remove();
-    }
+      const appointmentId = event.target.dataset.appointmentId;
+
+      try {
+        const response = await fetch(`/cancel-appointment/${appointmentId}`, {
+          method: 'POST'
+        });
+
+        if (response.ok) {
+          // Remove the canceled appointment row from the table
+          event.target.closest("tr").remove();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
   });
 });
-</script>
-
+  </script>
 </body>
 </html>

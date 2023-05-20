@@ -258,34 +258,22 @@ app.post("/appointment", async (req, res) => {
 
 
 //cancel appointment
-
 app.post('/cancel-appointment/:appointmentId', async (req, res) => {
   const appointmentId = req.params.appointmentId;
-  
+
   try {
     await Appointment.findByIdAndDelete(appointmentId);
     const userId = req.session.userId;
     const appointments = await Appointment.find({ patient_Id: userId });
-    const html = appointments.map(appointment => {
-      return `
-        <tr>
-          <td>${formatDate(appointment.date)}</td>
-          <td>${appointment.time}</td>
-          <td>${appointment.doctorName}</td>
-          <td>
-            <form action="/cancel-appointment/${appointment._id}" method="POST">
-              <button class="cancel-button" data-appointment-id="${appointment._id}">Cancel</button>
-            </form>
-          </td>
-        </tr>
-      `;
-    }).join('');
 
-    res.send(html);
+    // Send the updated appointment list as JSON response
+    res.json(appointments);
   } catch (err) {
     console.log(err);
+    res.status(500).send('Error canceling appointment');
   }
 });
+
 
 
 //Appointment view by patient
