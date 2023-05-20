@@ -31,6 +31,7 @@ app.use(session({
 
 
 
+// initialize passport and configure session support
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -85,7 +86,11 @@ app.get("/login", (req, res)=>{
 })
 
 
-
+/*app.get("/doctors", (req, res)=>{
+  const name = req.session.name;
+  res.render('doctors', {name: name});
+})*/
+//Login
 app.post('/login', async (req, res) => { 
     try {
       const email = req.body.email;
@@ -111,7 +116,7 @@ app.post('/login', async (req, res) => {
       }}
       else{
         res.send("Invalid login details");
-       
+        //res.status(401).render('login', { message: 'Invalid login details' });
       
       }
     } catch (error) {
@@ -120,7 +125,12 @@ app.post('/login', async (req, res) => {
     }
   });
 
-
+//LogOut
+/*app.get('/logout', (req, res) => {
+  req.logout(); // this method is provided by the passport module if you are using it
+  req.session.destroy();
+  res.redirect('/login'); // redirect to the login page after logout
+});*/
 app.get('/logout', function(req, res){
   req.logout(function(err){
     if(err){
@@ -133,7 +143,7 @@ app.get('/logout', function(req, res){
 });
 
 
-
+  //getting user name
   
   
 
@@ -141,7 +151,7 @@ app.get('/logout', function(req, res){
 
 
   //Search functionality for doctor
-
+ // assuming you have defined a GET route to handle the /doctors search query
  app.get("/doctors", async (req, res) => {
   try {
     const searchParam = req.query.field.trim();
@@ -193,7 +203,7 @@ app.get('/appointment/:id', async (req, res) => {
 
 
 //Book Appointment
-
+//let counter = 0;
 app.post("/appointment", async (req, res) => {
   try {
     const {
@@ -216,7 +226,7 @@ app.post("/appointment", async (req, res) => {
         .status(409)
         .send("Appointment already booked for this patient and doctor.");
     } else {
-  
+      // find the count of existing appointments for the same doctor and date
       const existingCount = await Appointment.countDocuments({
         doctorName: doctorName,
         date: datePicker,
@@ -302,22 +312,18 @@ app.get("/doctorview/:name", async (req, res) => {
 });
 
 //Update availability
-app.post('/update-availability', function(req, res) {
-  // Get doctor ID from session or request parameters
-  var doctorId = req.session.doctorId || req.body.doctorId;
-
-  // Get new availability status from request body
-  var available = req.body.available;
-
-  // Update doctor availability in database
-  Doctor.updateOne({ _id: doctorId }, { availability: available }, function(err, result) {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Error updating availability');
-    } else {
-      res.send('Availability updated successfully');
-    }
+app.post('/update-availability', (req, res) => {
+  const { doctorName, available } = req.body;
+  Doctor.updateOne({ name: doctorName }, { availability: available })
+  .then(result => {
+    console.log('Result:', result);
+    res.status(200).send('Doctor availability status updated');
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).send('Error updating doctor availability status');
   });
+
 });
 
 
@@ -341,7 +347,6 @@ app.post('/update-availability', function(req, res) {
 app.get('/contact', (req, res) => {
   res.render('contact');
 });
-
 
 
 
