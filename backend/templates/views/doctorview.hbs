@@ -59,45 +59,12 @@
             </tbody>
         </table>
     </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-       
-        console.log('Script loaded!');
-        
+    <script>  
         function formatDate(date) {
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const formattedDate = new Date(date).toLocaleDateString('en-US', options);
             return formattedDate;
         }
-    $(document).ready(function() {
-  $('.cancel-button').on('click', function(event) {
-    event.preventDefault();
-
-    const appointmentId = $(this).data('appointment-id');
-
-    $.ajax({
-      type: 'POST',
-      url: '/cancel-appointment/' + appointmentId,
-      success: function(data) {
-        // Update the view with the updated appointment list
-        $('#appointment-list').html(data);
-      }
-    });
-  });
-});
-</script>
-
-
-<script>
-document.querySelectorAll(".cancel-btn").forEach((btn) => {
-  btn.addEventListener("click", async (event) => {
-    const appointmentId = event.target.dataset.appointmentId;
-    const response = await fetch(`/cancel-appointment/${appointmentId}`);
-    if (response.ok) {
-      event.target.closest("tr").remove();
-    }
-  });
-});
-</script>
+ </script>
 </body>
 </html>
