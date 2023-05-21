@@ -282,7 +282,7 @@ app.get("/patientview/:userId", async (req, res) => {
   const userName = req.session.name;
   try {
     const appointments = await Appointment.find({ patient_Id: userId});
-    res.render("patientview", { appointments: appointments,name:req.session.name });
+    res.render("patientview", { appointments: appointments,name:req.session.name});
   } catch (err) {
     console.log(err);
   }
@@ -334,6 +334,11 @@ app.post('/update-availability', (req, res) => {
 //contact us
 app.get('/contact', (req, res) => {
   res.render('contact');
+});
+
+//about us
+app.get('/about', (req, res) => {
+  res.render('about');
 });
 
 

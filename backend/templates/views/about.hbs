@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>About Us</title>
+</head>
+<link rel="stylesheet" href="/css/about.css">
+<body>
+    <div class="sidebar">
+        <img src="/css/images/profile6.png" alt="Profile Photo">
+        <h3>{{name}}</h3>
+        <ul>
+            <li><a onclick="window.location.href = 'patientview/{{userId}}';" href="#">My Appointments</a></li>
+            <li><a href="/#">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/logout">Logout</a></li> <!-- Logout button -->
+        </ul>
+    </div>
+  
+    <div id="about-content">
+        <h1>About Us</h1>
+        <p>Welcome to our website! We are a team of dedicated professionals committed to providing high-quality healthcare services to our patients. Our mission is to [provide a brief overview of your organization's mission or purpose]. With [number of years/experience], we have built a reputation for excellence in [specific area/field].</p>
+        <p>Feel free to explore our website to learn more about the services we offer and how we can assist you in achieving your healthcare goals.</p>
+    </div>
+</body>
+<style>
+    body {
+        background-image: url("/css/images/home6.jpg");
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* Additional styles for the About Us content */
+    #about-content {
+        text-align: center;
+        margin: 50px auto;
+        max-width: 800px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #about-content h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    #about-content p {
+        font-size: 30px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+</style>
+</html>
