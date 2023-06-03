@@ -115,13 +115,14 @@ app.post('/login', async (req, res) => {
          //res.render('doctorview', { appointments: appointments, doctorName: doctorName });
       }}
       else{
-        res.send("Invalid login details");
-        //res.status(401).render('login', { message: 'Invalid login details' });
+       // res.send("Invalid login details");
+        res.render('login', { message: 'Invalid login details' });
       
       }
     } catch (error) {
       console.error(error);
-      res.status(400).send('Invalid login details');
+      //res.status(400).send('Invalid login details');
+      res.status(400).render('login', { message: 'Invalid login details' });
     }
   });
 
@@ -177,7 +178,7 @@ app.get('/logout', function(req, res){
         },
       ],
     });
-    return res.render("doctors", { doctors, username:req.session.name });
+    return res.render("doctors", { doctors, username:req.session.name,userId:req.session.userId});
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
