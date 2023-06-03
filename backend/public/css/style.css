@@ -427,3 +427,8 @@ input:focus::placeholder{
   button[type="submit"]:hover {
     background-color: #524fed;
   }
+  .error-message {
+    color: red;
+    position: relative;
+    top: 5px;
+}

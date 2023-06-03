@@ -92,39 +92,38 @@ app.get("/login", (req, res)=>{
 })*/
 //Login
 app.post('/login', async (req, res) => { 
-    try {
-      const email = req.body.email;
-      const password = req.body.password;
-     const useremail = await Register.findOne({email:email});
-      const doctoremail = await Doctor.findOne({email:email});
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+    const useremail = await Register.findOne({ email: email });
+    const doctoremail = await Doctor.findOne({ email: email });
 
-      //console.log(doctoremail.password);
-      if(useremail != null){
+    if (useremail !== null) {
       if (useremail.password === password) {
         const name = useremail.name;
         const userId = useremail._id;
-        req.session.userId = userId
+        req.session.userId = userId;
         req.session.name = name;
-         res.status(201).render('search',{name: name,userId: userId});
-      }}
-      else if(doctoremail != null){
-        if (doctoremail.password === password) {
-         const doctorName=doctoremail.name
-         const doctorId = doctoremail._id;
-         res.status(201).redirect('/doctorview/' + encodeURIComponent(doctorName));
-         //res.render('doctorview', { appointments: appointments, doctorName: doctorName });
-      }}
-      else{
-       // res.send("Invalid login details");
+        res.status(201).render('search', { name: name, userId: userId });
+      } else {
         res.render('login', { message: 'Invalid login details' });
-      
       }
-    } catch (error) {
-      console.error(error);
-      //res.status(400).send('Invalid login details');
-      res.status(400).render('login', { message: 'Invalid login details' });
+    } else if (doctoremail !== null) {
+      if (doctoremail.password === password) {
+        const doctorName = doctoremail.name;
+        const doctorId = doctoremail._id;
+        res.status(201).redirect('/doctorview/' + encodeURIComponent(doctorName));
+      } else {
+        res.render('login', { message: 'Invalid login details' });
+      }
+    } else {
+      res.render('login', { message: 'Invalid login details' });
     }
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(400).render('login', { message: 'Invalid login details' });
+  }
+});
 
 //LogOut
 /*app.get('/logout', (req, res) => {
