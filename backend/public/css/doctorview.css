@@ -218,7 +218,8 @@ input:checked + .slider:before {
 p{
        position: relative;
        top: 30px;
-       left: 70px;
+       left: 85px;
+       font-size: large;
 }
 #availability {
   display: inline-block;
