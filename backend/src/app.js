@@ -156,10 +156,15 @@ app.get('/logout', function(req, res){
       return res.render("doctors", { doctors: [] });
     }
     const doctors = await Doctor.find({
-      $or: [
-        { name: { $regex: searchRegex } },
-        { specialization: { $regex: searchRegex } },
-        { field: { $regex: searchRegex } },
+      $and: [
+        { availability: true },
+        {
+          $or: [
+            { name: { $regex: searchRegex } },
+            { specialization: { $regex: searchRegex } },
+            { field: { $regex: searchRegex } },
+          ],
+        },
       ],
     });
     return res.render("doctors", { doctors, username: req.session.name, userId: req.session.userId });
