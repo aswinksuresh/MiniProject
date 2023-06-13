@@ -181,14 +181,15 @@ ul li a:hover{
     transition: .4s ease;
     opacity: 0.5;
     position: relative;
-    top: 50px;
+    top: 100px;
+    right: 550px;
 }
 
 .content .cn a{
     text-decoration: none;
     color:#000;
     transition: .3s ease;
-    font-weight: 600;
+    font-weight: 550;
 }
 
 .cn:hover{
@@ -208,7 +209,8 @@ ul li a:hover{
     transition: .4s ease;
     opacity: 0.5;
     position: relative;
-    top: 50px;
+    top: 100px;
+    right: 550px;
     padding: 10px 20px;
   
     
@@ -431,4 +433,32 @@ input:focus::placeholder{
     color: red;
     position: relative;
     top: 5px;
+}
+
+
+.animated-text {
+    position: relative;
+    display: inline-block;
+    animation: wave-motion 2s linear infinite, top-down-motion 4s ease-in-out infinite;
+}
+
+@keyframes wave-motion {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-10px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes top-down-motion {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
 }

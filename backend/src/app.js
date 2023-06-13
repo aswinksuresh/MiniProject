@@ -72,7 +72,7 @@ app.post("/register", async(req, res)=>{
        const registered= await registerUser.save();
        res.status(201).render("login");
         //const password = req.body.password;
-        
+        console.log(registerUser)
         
     } catch (error) {
         res.status(400).send(error)
@@ -143,12 +143,8 @@ app.get('/logout', function(req, res){
 });
 
 
-  //getting user name
-  
-  
-
-
-
+  //autofill
+ 
 
   //Search functionality for doctor
  // assuming you have defined a GET route to handle the /doctors search query
@@ -160,24 +156,13 @@ app.get('/logout', function(req, res){
       return res.render("doctors", { doctors: [] });
     }
     const doctors = await Doctor.find({
-      $and: [
-        { availability: true},
-        {
-          $or: [
-            { name: { $regex: searchRegex } },
-            { specialization: { $regex: searchRegex } },
-            { field: { $regex: searchRegex } },
-            {
-              $and: [
-                { specialization: { $regex: searchRegex } },
-                { field: { $regex: searchRegex } },
-              ],
-            },
-          ],
-        },
+      $or: [
+        { name: { $regex: searchRegex } },
+        { specialization: { $regex: searchRegex } },
+        { field: { $regex: searchRegex } },
       ],
     });
-    return res.render("doctors", { doctors, username:req.session.name,userId:req.session.userId});
+    return res.render("doctors", { doctors, username: req.session.name, userId: req.session.userId });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });

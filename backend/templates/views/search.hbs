@@ -1,43 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    
-    <title>Search</title>
-</head>
-<link rel="stylesheet" href="/css/search.css">
-<body>
+<!-- Created By CodingNepal - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Search</title>
+    <link rel="stylesheet" href="/css/search.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+      body {
+        background-image: url("/css/images/home6.jpg");
+        background-size: 100% 100%;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body>
     <div class="sidebar">
-		<img src="/css/images/profile6.png" alt="Profile Photo">
-		<h3>{{name}}</h3>
-		<ul>
-			<li><a onclick="window.location.href = 'patientview/{{userId}}';" href="#">My Appointments</a></li>
-            <li><a href="/#">Home</a></li>
-			<li><a href="/about">About</a></li>
-			<li><a href="/contact">Contact</a></li>
-			<li><a href="/logout">Logout</a></li> <!-- Logout button -->
-		</ul>
-	</div>
-  
-    <div id="cover">
-        <form method="get" action="/doctors">
-          <div class="tb">
-            <div class="td"><input type="text" name = "field" placeholder="Search" required>   
-            </div>
-            <div class="td" id="s-cover">
-              <button type="submit">
-                <div id="s-circle"></div>
-                <span></span>
-              </button>
-            </div>
+      <img src="/css/images/profile6.png" alt="Profile Photo">
+      <h3>{{name}}</h3>
+      <ul>
+        <li><a onclick="window.location.href = 'patientview/{{userId}}';" href="#">My Appointments</a></li>
+        <li><a href="/#">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/logout">Logout</a></li> <!-- Logout button -->
+      </ul>
+    </div>
+    
+    <div class="wrapper">
+       <form method="get" action="/doctors">
+        <div class="search-input">
+          <a href="" target="_blank" hidden></a>
+          <input type="text" name="field" placeholder="Search Doctor Name/Specialization">
+          <div class="autocom-box">
+            <!-- here list is inserted from JavaScript -->
           </div>
-        </form>
-      </div>
-</body>
-<style>
-    body{
-     background-image: url("/css/images/home6.jpg");
-     background-size: 100% 100%;
-     background-attachment: fixed;
-     background-repeat: no-repeat;  
-     background-position: center;
-}
+          <div class="icon"><i class="fas fa-search"></i></div>
+        </div>
+        <button type="submit" style="display: none;"></button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script src="/css/suggestions.js"></script>
+    <script src="/css/script.js"></script>
+  </body>
+</html>
