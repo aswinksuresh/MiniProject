@@ -59,27 +59,27 @@ app.get("/register", (req, res)=>{
     res.render("register");
 })
 //SignUP
-app.post("/register", async(req, res)=>{
-    
-    try {
-        const registerUser = new Register({
-            
-             name:req.body.name,
-             email:req.body.email,
-             password:req.body.password
+app.post("/register", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const registerUser = new Register({
+      name,
+      email,
+      password,
+    });
 
-        })
-       const registered= await registerUser.save();
-       res.status(201).render("login");
-        //const password = req.body.password;
-        console.log(registerUser)
-        
-    } catch (error) {
-        res.status(400).send(error)
-        console.log(error);
-        
-    }
-})
+    const registered = await registerUser.save();
+    res.status(201).render("login");
+    console.log(registerUser);
+  } catch (error) {
+    res.status(400).send(error);
+    console.log(error);
+  }
+});
+
+
+
+
 
 app.get("/login", (req, res)=>{
     res.render("login");
