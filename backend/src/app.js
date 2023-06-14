@@ -83,7 +83,9 @@ app.post("/register", async (req, res) => {
 });
 
 
-
+app.get("/search",(req, res) => {
+  res.render("search",{name:req.session.name,userId: req.session.userId })
+});
 
 
 app.get("/login", (req, res)=>{
