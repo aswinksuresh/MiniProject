@@ -337,7 +337,7 @@ input:focus::placeholder{
   }
    input[type="submit"] {
     background-color: #21449e;
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -362,7 +362,7 @@ input:focus::placeholder{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(36, 27, 27, 0.6);
   }
   
   .form {
