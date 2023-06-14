@@ -462,3 +462,8 @@ input:focus::placeholder{
         transform: translateY(10px);
     }
 }
+.error {
+    color: red;
+    position:relative;
+    top: 10px;
+  }
