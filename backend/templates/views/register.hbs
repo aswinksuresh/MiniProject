@@ -29,6 +29,9 @@
         <input type="password" id="password" name="password" placeholder="Enter your password" required>
 
         <button type="submit" >Sign Up </button>
+         {{#if message}}
+    <p class="error">{{message}}</p>
+  {{/if}}
       </form>
       
     </div>
