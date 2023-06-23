@@ -36,6 +36,10 @@ const appointmentSchema = new mongoose.Schema({
       type: Number,
       default: 1
     },
+    fileUrl: {
+      type: String, // Adjust the data type based on your specific requirements
+      default: null
+    },
    
   });
   appointmentSchema.index({ patientName: 1, doctorName: 1 }, { unique: true });

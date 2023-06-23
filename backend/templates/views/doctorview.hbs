@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+
     <link rel="stylesheet" href="/css/doctorview.css">
+
     <title>Doctors Appointments</title>
 </head>
 <body>
@@ -34,34 +39,48 @@
 
     <div class="appointments">
         <h2>Upcoming Appointments</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Patient Name</th>
-                    <th>Token</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            {{#each appointments}}
-                <tr>
-                    <td>{{formatDate this.date}}</td>
-                    <td>{{this.time}}</td>
-                    <td>{{this.patientName}}</td>
-                    <td>{{this.token}}</td>
-                    <td> <form action="/cancel-appointment/{{this._id}}" method="POST">
-      <button class="cancel-button" data-appointment-id="{{this._id}}">Complete</button>
-    </form></td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Patient Name</th>
+      <th>Patient Description</th>
+      <th>Token</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each appointments}}
+    <tr>
+      <td>{{formatDate this.date}}</td>
+      <td>{{this.time}}</td>
+      <td>{{this.patientName}}</td>
+      <td>
+        {{#if this.fileUrl}}
+       <button onclick="openDocument('{{this.fileUrl}}')" class="view-document-button">View Document</button>
+
+        <div id="pdf-container"></div>
+        {{else}}
+        No Document
+        {{/if}}
+      </td>
+      <td>{{this.token}}</td>
+      <td>
+        <form action="/cancel-appointment/{{this._id}}" method="POST">
+          <button class="cancel-button" data-appointment-id="{{this._id}}">Complete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
     
+<div id="pdf-container"></div>
 
        <script>
         console.log('Script loaded!');
@@ -172,6 +191,22 @@ $(document).ready(function() {
   // Call the updateAvailability function on page load
   updateAvailability();
 });
+
+
+
+async function openDocument(fileUrl) {
+  const width = 800; // Width of the popup window
+  const height = 600; // Height of the popup window
+  const left = (window.innerWidth - width) / 2; // Calculate the left position
+  const top = (window.innerHeight - height) / 2; // Calculate the top position
+  
+  // Open a new popup window
+  const popupWindow = window.open(fileUrl, '_blank', `width=${width}, height=${height}, left=${left}, top=${top}`);
+  
+  // Focus the popup window
+  popupWindow.focus();
+}
+
 
    </script>
 </body>

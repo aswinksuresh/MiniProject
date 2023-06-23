@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/css/appointment.css">
+
     <title>appointment</title>
 </head>
 <body>
@@ -26,98 +27,101 @@
         </ul>
     </div>
     <div class="card">
-        <img src="/css/images/profile2.png" class="profile">
-        <div class="info">
-            <h2>DR.{{doctor.name}}</h2>
-            <h3>{{doctor.specialization}}</h3>
-            <h3>{{doctor.location}}</h3>
-            <h3>{{doctor.time}}</h3>
-            <div class="picker">
-            Select date
-            <input type="date" id="date-picker">
-            </div>
-            
-        </div>
-        <button class="button">Book Appointment</button>
-        
-     </div>
+  <img src="/css/images/profile2.png" class="profile">
+  <div class="info">
+    <h2>DR.{{doctor.name}}</h2>
+    <h3>{{doctor.specialization}}</h3>
+    <h3>{{doctor.location}}</h3>
+    <h3>{{doctor.time}}</h3>
+    <div class="picker">
+      Select date
+      <input type="date" id="date-picker">
+    </div>
+   <form id="appointmentForm" enctype="multipart/form-data">
+ <div class="file-upload">
+  <label for="file">Upload Document:</label>
+  <input type="file" id="file" name="document" accept=".pdf, .jpg, .jpeg, .png">
+</div>
+  <button class="button" type="submit">Book Appointment</button>
+</form>
+  </div>
+</div>
+<script>
+  const fileInput = document.getElementById('file');
+  
+  fileInput.addEventListener('change', (event) => {
+    const selectedFile = event.target.files[0];
     
-
-
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-       
-  let datePicker = document.getElementById("date-picker");
-  let now = new Date();
-  let formattedDate = now.toLocaleDateString('en-US');
-datePicker.value = formattedDate;
-  //datePicker.valueAsDate = now;
-
-  const bookAppointmentButton = document.querySelector('.button:last-of-type');
-
-  bookAppointmentButton.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent the form from being submitted
-
-    // Get the appointment data from the form
-    const datePicker = document.getElementById('date-picker');
-
-    const selectedDate = new Date(datePicker.value);
-    const today = new Date();
-
-
-
-
-    const patient_Id="{{userId}}";
-    const patientName = "{{username}}";
-    const doctorName = "{{doctor.name}}";
-    const doctorLocation = "{{doctor.location}}";
-    const consultationTime = "{{doctor.time}}";
-    const doctorSpecialization = "{{doctor.specialization}}";
-
-
- if (selectedDate < today) {
-      alert('Selected date is before today\'s date. Please choose a future date.');
-      return;
-    }
-
-
-
-    // Send the appointment data to the server
-    fetch('/appointment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        datePicker: datePicker.value,
-        patient_Id,
-        patientName,                                                
-        doctorName,
-        doctorLocation,
-        consultationTime,
-         doctorSpecialization
-      })
-    })
-    .then(response => {
-       if (response.ok) {
-    // Show a success message with the token to the user
-    response.text().then(msg => {
-      alert(msg);
-    });
-  }else {
-        // Show an error message to the user
-        alert('Failed to book appointment!');
+    if (selectedFile) {
+      const fileType = selectedFile.type;
+      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+      
+      if (!allowedTypes.includes(fileType)) {
+        alert('Only PDF or image files are allowed.');
+        fileInput.value = ''; // Clear the file input
       }
-    })
-    .catch(error => {
-      // Show an error message to the user
-      alert('Appointment already booked!');
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const appointmentForm = document.getElementById('appointmentForm');
+    const fileInput = document.getElementById('file');
+
+    appointmentForm.addEventListener('submit', (event) => {
+      event.preventDefault(); // Prevent the form from submitting
+
+      const formData = new FormData();
+      formData.append('document', fileInput.files[0]);
+
+      const datePicker = document.getElementById('date-picker');
+      const selectedDate = new Date(datePicker.value);
+      const today = new Date();
+
+      if (selectedDate < today) {
+        alert("Selected date is before today's date. Please choose a future date.");
+        return;
+      }
+
+      const patient_Id = "{{userId}}";
+      const patientName = "{{username}}";
+      const doctorName = "{{doctor.name}}";
+      const doctorLocation = "{{doctor.location}}";
+      const consultationTime = "{{doctor.time}}";
+      const doctorSpecialization = "{{doctor.specialization}}";
+
+      formData.append('datePicker', datePicker.value);
+      formData.append('patient_Id', patient_Id);
+      formData.append('patientName', patientName);
+      formData.append('doctorName', doctorName);
+      formData.append('doctorLocation', doctorLocation);
+      formData.append('consultationTime', consultationTime);
+      formData.append('doctorSpecialization', doctorSpecialization);
+
+      fetch('/appointment', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => {
+          if (response.ok) {
+            // Show a success message to the user
+            response.text().then(msg => {
+              alert(msg);
+            });
+          } else {
+            // Show an error message to the user
+            alert('Failed to book appointment!');
+          }
+        })
+        .catch(error => {
+          // Show an error message to the user
+          alert('Failed to book appointment!');
+        });
     });
   });
-});
-  
+</script>
 
-    </script>
+
+   
 </body>
 </html>

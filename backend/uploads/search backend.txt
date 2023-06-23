@@ -1,0 +1,31 @@
+app.get("/doctors", async (req, res) => {
+  try {
+    const searchParam = req.query.field.trim();
+    const searchRegex = new RegExp(searchParam, 'i');
+    if (!searchParam) {
+      return res.render("doctors", { doctors: [] });
+    }
+    const doctors = await Doctor.find({
+      $and: [
+        { availability: true},
+        {
+          $or: [
+            { name: { $regex: searchRegex } },
+            { specialization: { $regex: searchRegex } },
+            { field: { $regex: searchRegex } },
+            {
+              $and: [
+                { specialization: { $regex: searchRegex } },
+                { field: { $regex: searchRegex } },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+    return res.render("doctors", { doctors, username:req.session.name,userId:req.session.userId});
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});

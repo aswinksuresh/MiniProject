@@ -1,0 +1,52 @@
+app.post("/appointment", async (req, res) => {
+  try {
+    const {
+      datePicker,
+      patient_Id,
+      patientName,
+      doctorName,
+      doctorLocation,
+      consultationTime,
+      doctorSpecialization,
+    } = req.body;
+
+    const existingAppointment = await Appointment.findOne({
+      patientName: patientName,
+      doctorName: doctorName,
+      patient_Id: patient_Id,
+    });
+    if (existingAppointment) {
+      res
+        .status(409)
+        .send("Appointment already booked for this patient and doctor.");
+    } else {
+      // find the count of existing appointments for the same doctor and date
+      const existingCount = await Appointment.countDocuments({
+        doctorName: doctorName,
+        date: datePicker,
+      });
+      const token = existingCount + 1;
+
+      const bookAppointment = new Appointment({
+        token: token,
+        doctorName: doctorName,
+        doctorSpecialization: doctorSpecialization,
+        patientName: patientName,
+        patient_Id: patient_Id,
+        time: consultationTime,
+        date: datePicker,
+        location: doctorLocation,
+      });
+      const booked = await bookAppointment.save();
+      console.log(booked);
+
+      res.status(201).send(`Appointment booked successfully! Token No: ${token}`);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Already has an appointment!");
+    console.log(error.errors);
+  }
+});
+
+

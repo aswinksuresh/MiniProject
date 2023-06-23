@@ -13,7 +13,7 @@ const partials_path = path.join(__dirname, "../templates/partials");
 const passport = require('passport');
 app.use(express.urlencoded({ extended: true }));//patient view cancel
 const bodyParser = require('body-parser');
-
+const multer = require('multer');
 const moment = require('moment');
 
 // Define a Handlebars helper to format a date using Moment.js
@@ -36,6 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+app.use('/uploads', express.static('uploads'));
 
 
 
@@ -198,10 +199,23 @@ app.get('/appointment/:id', async (req, res) => {
 });
 
 
+const storage = multer.diskStorage({
+  destination: (req,file,cb) =>{
+    cb(null,'Uploads')
+  },
+  filename:(req, file, cb) =>{
+    cb(null,file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+
+
 
 //Book Appointment
 //let counter = 0;
-app.post("/appointment", async (req, res) => {
+app.post("/appointment", upload.single('document'), async (req, res) => {
   try {
     const {
       datePicker,
@@ -218,10 +232,9 @@ app.post("/appointment", async (req, res) => {
       doctorName: doctorName,
       patient_Id: patient_Id,
     });
+
     if (existingAppointment) {
-      res
-        .status(409)
-        .send("Appointment already booked for this patient and doctor.");
+      res.status(409).send("Appointment already booked for this patient and doctor.");
     } else {
       // find the count of existing appointments for the same doctor and date
       const existingCount = await Appointment.countDocuments({
@@ -229,6 +242,12 @@ app.post("/appointment", async (req, res) => {
         date: datePicker,
       });
       const token = existingCount + 1;
+
+      let fileUrl = null;
+      console.log(req.file)
+      if (req.file) {
+        fileUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+      }
 
       const bookAppointment = new Appointment({
         token: token,
@@ -239,7 +258,9 @@ app.post("/appointment", async (req, res) => {
         time: consultationTime,
         date: datePicker,
         location: doctorLocation,
+        fileUrl: fileUrl,
       });
+
       const booked = await bookAppointment.save();
       console.log(booked);
 
@@ -251,7 +272,6 @@ app.post("/appointment", async (req, res) => {
     console.log(error.errors);
   }
 });
-
 
 
 //cancel appointment
@@ -289,6 +309,7 @@ app.get("/doctorview/:name", async (req, res) => {
   const doctorName = req.params.name;
   try {
     const appointments = await Appointment.find({ doctorName: doctorName });
+    console.log(appointments)
     res.render("doctorview", { appointments: appointments,doctorName: doctorName });
   } catch (err) {
     console.error(err);
