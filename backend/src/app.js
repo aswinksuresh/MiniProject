@@ -84,7 +84,7 @@ app.post("/register", async (req, res) => {
 
 
 app.get("/search",(req, res) => {
-  res.render("search",{name:req.sesssion.name})
+  res.render("search",{name:req.session.name})
 });
 
 
