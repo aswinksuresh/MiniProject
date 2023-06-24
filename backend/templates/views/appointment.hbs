@@ -29,9 +29,11 @@
         <img src="/css/images/profile2.png" class="profile">
         <div class="info">
             <h2>DR.{{doctor.name}}</h2>
+            <a href="{{doctor.mapLink}}" target="_blank" class="buttn">View Location</a>
             <h3>{{doctor.specialization}}</h3>
             <h3>{{doctor.location}}</h3>
             <h3>{{doctor.time}}</h3>
+            
             <div class="picker">
             Select date
             <input type="date" id="date-picker">
@@ -39,9 +41,8 @@
             
         </div>
         <button class="button">Book Appointment</button>
-        
      </div>
-    
+
 
 
 
