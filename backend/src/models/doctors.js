@@ -33,7 +33,9 @@ const doctorSchema = new mongoose.Schema({
     availability: {
         type: Boolean,
         default: true
-      }
+      },
+      mapLink: {
+        type: String}
 })
 
 const Doctor = new mongoose.model("Doctor", doctorSchema);

@@ -27,6 +27,7 @@
         </ul>
     </div>
     <div class="card">
+<<<<<<< HEAD
   <img src="/css/images/profile2.png" class="profile">
   <div class="info">
     <h2>DR.{{doctor.name}}</h2>
@@ -59,6 +60,91 @@
       if (!allowedTypes.includes(fileType)) {
         alert('Only PDF or image files are allowed.');
         fileInput.value = ''; // Clear the file input
+=======
+        <img src="/css/images/profile2.png" class="profile">
+        <div class="info">
+            <h2>DR.{{doctor.name}}</h2>
+            <a href="{{doctor.mapLink}}" target="_blank" class="buttn">View Location</a>
+            <h3>{{doctor.specialization}}</h3>
+            <h3>{{doctor.location}}</h3>
+            <h3>{{doctor.time}}</h3>
+            
+            <div class="picker">
+            Select date
+            <input type="date" id="date-picker">
+            </div>
+            
+        </div>
+        <button class="button">Book Appointment</button>
+     </div>
+
+
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+       
+  let datePicker = document.getElementById("date-picker");
+  let now = new Date();
+  let formattedDate = now.toLocaleDateString('en-US');
+datePicker.value = formattedDate;
+  //datePicker.valueAsDate = now;
+
+  const bookAppointmentButton = document.querySelector('.button:last-of-type');
+
+  bookAppointmentButton.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent the form from being submitted
+
+    // Get the appointment data from the form
+    const datePicker = document.getElementById('date-picker');
+
+    const selectedDate = new Date(datePicker.value);
+    const today = new Date();
+
+
+
+
+    const patient_Id="{{userId}}";
+    const patientName = "{{username}}";
+    const doctorName = "{{doctor.name}}";
+    const doctorLocation = "{{doctor.location}}";
+    const consultationTime = "{{doctor.time}}";
+    const doctorSpecialization = "{{doctor.specialization}}";
+
+
+ if (selectedDate < today) {
+      alert('Selected date is before today\'s date. Please choose a future date.');
+      return;
+    }
+
+
+
+    // Send the appointment data to the server
+    fetch('/appointment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        datePicker: datePicker.value,
+        patient_Id,
+        patientName,                                                
+        doctorName,
+        doctorLocation,
+        consultationTime,
+         doctorSpecialization
+      })
+    })
+    .then(response => {
+       if (response.ok) {
+    // Show a success message with the token to the user
+    response.text().then(msg => {
+      alert(msg);
+    });
+  }else {
+        // Show an error message to the user
+        alert('Failed to book appointment!');
+>>>>>>> refs/remotes/origin/master
       }
     }
   });
