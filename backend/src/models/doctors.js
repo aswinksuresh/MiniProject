@@ -34,6 +34,11 @@ const doctorSchema = new mongoose.Schema({
         type: Boolean,
         default: true
       },
+      Experience : {
+        type:String,
+       
+    },
+      
       mapLink: {
         type: String}
 })

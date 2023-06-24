@@ -2,16 +2,36 @@
 h1{
     color: #07064c;
     text-align: center;
+    
 }
+h2{
+  text-align: left;
+  color: #07064c;
+  position: relative;
+  top: 30px
+}
+ 
 h3{
-    text-align: center;
+    text-align: left;
     color: #07064c;
+    position: relative;
+    top:18px
+   
   }
   h4{
     font-size: 22px;
     color: #fff;
     position: relative;
     left: 90px;
+
+  }
+  h5{
+    text-align:left;
+    color: #07064c;
+    font-size: 18px;
+    position: relative;
+    bottom:10px
+  
   }
   .card{
     background: white;

@@ -75,7 +75,7 @@
     right: 20px;
 }
 .button {
-    background-color: #0c2061;
+    background-color: #26648e;
     border:none;
     color: rgb(255, 255, 255);
     padding: 0;
@@ -121,5 +121,19 @@ p{
     color: red;
     font-size: smaller;
 }
-
+.pill-button {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #4f8fc0;
+    color: #ffffff;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .pill-button i {
+    margin-right: 8px;
+  }
     

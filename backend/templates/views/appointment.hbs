@@ -31,12 +31,17 @@
   <div class="info">
     <h2>DR.{{doctor.name}}</h2>
     <h3>{{doctor.specialization}}</h3>
-    <h3>{{doctor.location}}</h3><a href="{{doctor.mapLink}}" target="_blank" class="button">View Location</a>
+    <h3>{{doctor.location}}</h3>
+    <button class="pill-button" onclick="redirectToLocation()">
+  <i class="fas fa-map-marker-alt"></i>
+  View Location
+</button>
     <h3>{{doctor.time}}</h3>
     <div class="picker">
       Select date
       <input type="date" id="date-picker">
     </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
    <form id="appointmentForm" enctype="multipart/form-data">
  <div class="file-upload">
   <label for="file">Upload Document:</label>
@@ -62,6 +67,9 @@
       }
     }
   });
+  function redirectToLocation() {
+  window.location.href = "{{doctor.mapLink}}"; // Replace with your desired link
+}
 </script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
