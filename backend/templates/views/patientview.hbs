@@ -18,14 +18,25 @@
     <div class="sidebar">
         <img src="/css/images/profile6.png" alt="Profile Photo">
         <h3>{{name}}</h3>
-        <ul>
-            <li><a href=""/patientview/{{userId}}"">My Appointments</a></li>
-            <li><a href="/search">Search</a></li>
-
-            <li><a href="/#">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-        </ul>
+       <ul>
+ <ul>
+  <li >
+    <a>My Appointments</a>
+  </li>
+  <li onclick="window.location.href='/search'">
+    <a>Search</a>
+  </li>
+  <li onclick="window.location.href='/'">
+    <a>Home</a>
+  </li>
+  <li onclick="window.location.href='/about'">
+    <a>About</a>
+  </li>
+  <li onclick="window.location.href='/contact'">
+    <a>Contact</a>
+  </li>
+</ul>
+</ul>
     </div>
 
     <div class="appointments">

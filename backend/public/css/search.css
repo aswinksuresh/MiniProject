@@ -4,8 +4,9 @@
   left: 0;
   width: 250px;
   height: 100%;
-  background-color: rgba(49, 45, 45,0.5);
+  background-color: rgb(5, 7, 100);
   color: #fff; 
+  padding:20px;
 }
 
 .sidebar img {
@@ -20,20 +21,20 @@
 
 .sidebar h3 {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 35px;
   margin-bottom: 0;
   font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
 
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
   position:relative;
   top:50px;
   font-size:20px;
   text-align: center;
+  line-height: 2.5;
 }
 
 .sidebar li {
@@ -45,11 +46,15 @@
   color: #fff;
   text-decoration: none;
   font-family: Georgia, 'Times New Roman', Times, serif;
+  
 }
-
-
 .sidebar ul li:hover{
-  background: rgb(61, 70, 252);
+  background: rgb(235, 234, 238);
+  border-radius: 40px;
+
+}
+.sidebar ul li:hover a {
+  color: #120672; /* Replace with your desired color */
 }
 .main-content {
   margin-left: 250px;
