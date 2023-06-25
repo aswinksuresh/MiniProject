@@ -31,13 +31,22 @@
         <img src="/css/images/profile6.png" alt="Profile Photo">
         <h4>{{username}}</h4>
         <ul>
-            <li><a onclick="window.location.href = 'patientview/{{userId}}';" href="#">My Appointments</a></li>
-            <li><a href="/search">Search</a></li>
-            <li><a href="/#">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-            
-        </ul>
+  <li onclick="window.location.href='/patientview/{{userId}}'">
+    <a>My Appointments</a>
+  </li>
+  <li onclick="window.location.href='/search'">
+    <a>Search</a>
+  </li>
+  <li onclick="window.location.href='/'">
+    <a>Home</a>
+  </li>
+  <li onclick="window.location.href='/about'">
+    <a>About</a>
+  </li>
+  <li onclick="window.location.href='/contact'">
+    <a>Contact</a>
+  </li>
+</ul>
     </div>
     <style>
    body{
