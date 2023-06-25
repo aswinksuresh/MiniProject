@@ -75,7 +75,7 @@
     right: 20px;
 }
 .button {
-    background-color: #26648e;
+    background-color: #0c2061;
     border:none;
     color: rgb(255, 255, 255);
     padding: 0;
@@ -125,7 +125,7 @@ p{
     display: inline-block;
     padding: 8px 16px;
     border-radius: 20px;
-    background-color: #4f8fc0;
+    background-color: #4F8FC0;
     color: #ffffff;
     border: none;
     font-weight: bold;
@@ -136,4 +136,10 @@ p{
   .pill-button i {
     margin-right: 8px;
   }
-    
+  .pill-button:active{
+    background-color: rgb(54, 101, 230);
+    transform: translateY(4px);
+  }
+  .pill-button:hover{
+    transform: scale(1);
+    background-color: rgb(54, 101, 230);
