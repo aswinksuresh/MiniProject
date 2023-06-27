@@ -4,50 +4,58 @@
     left: 0;
     width: 250px;
     height: 100%;
-    background-color: rgba(49, 45, 45,0.5);
+    background-color: rgb(5, 7, 100);
     color: #fff; 
-}
-
-.sidebar img {
+  }
+  
+  .sidebar img {
     display: block;
     margin: 0 auto;
     width: 120px;
     height: 120px;
     border-radius: 50%;
     position: relative;
-    top: 20px;
-}
-
-.sidebar h3 {
+    top: 25px;
+  }
+  
+  .sidebar h3 {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 35px;
     margin-bottom: 0;
-}
-
-
-.sidebar ul {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  
+  }
+  
+  
+  .sidebar ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
     position:relative;
-    top:50px;
+    top:45px;
     font-size:20px;
     text-align: center;
-}
-
-.sidebar li {
+    line-height: 2.5;
+    text-align: center;
+    right:20px;
+  }
+  
+  .sidebar li {
     margin-bottom: 10px;
-}
-
-.sidebar li a {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 210px;
+  }
+  
+  .sidebar li a {
     color: #fff;
     text-decoration: none;
-}
-
-
-.sidebar ul li:hover{
-    background: rgb(61, 70, 252);
-}
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  .sidebar ul li:hover{
+    background: rgb(235, 234, 238);
+    border-radius: 40px;
+  }
+  .sidebar ul li:hover a {
+    color: #120672; /* Replace with your desired color */
+  }
 .main-content {
     margin-left: 250px;
     padding: 20px;
@@ -143,4 +151,3 @@ p{
   .pill-button:hover{
     transform: scale(1);
     background-color: rgb(54, 101, 230);
-  
