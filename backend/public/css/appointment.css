@@ -152,3 +152,47 @@ p{
     transform: scale(1);
     background-color: rgb(54, 101, 230);
   }
+
+
+
+
+
+
+  .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  .popup-content {
+    background-color: #fff;
+    width: 300px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .popup-button {
+    margin: 0 10px;
+  }
+  
+  
+
+
+  
+  
+  

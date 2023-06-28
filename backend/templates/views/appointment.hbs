@@ -42,24 +42,39 @@
     <h3>{{doctor.specialization}}</h3>
     <h3>{{doctor.location}}</h3>
     <button class="pill-button" onclick="redirectToLocation()">
-  <i class="fas fa-map-marker-alt"></i>
-  View Location
-</button>
+      <i class="fas fa-map-marker-alt"></i>
+      View Location
+    </button>
     <h3>{{doctor.time}}</h3>
     <div class="picker">
       Select date
       <input type="date" id="date-picker">
     </div>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-   <form id="appointmentForm" enctype="multipart/form-data">
- <div class="file-upload">
-  <label for="file">Upload Document:</label>
-  <input type="file" id="file" name="document" accept=".pdf, .jpg, .jpeg, .png">
-</div>
-  <button class="button" type="submit">Book Appointment</button>
-</form>
+    <div class="recommendation-container">
+      <button class="recommend-button" onclick="showPopup()">Recommend Doctor</button>
+    </div>
+    <form id="appointmentForm" enctype="multipart/form-data">
+      <div class="file-upload">
+        <label for="file">Upload Document:</label>
+        <input type="file" id="file" name="document" accept=".pdf, .jpg, .jpeg, .png">
+      </div>
+      <button class="button" type="submit">Book Appointment</button>
+    </form>
+  </div>
+  <div id="recommendationPopup" class="popup">
+    <div class="popup-content">
+      <h2>Would you like to recommend the doctor?</h2>
+      <div class="button-container">
+        <button class="popup-button" onclick="recommendDoctor(true)">Yes</button>
+        <button class="popup-button" onclick="recommendDoctor(false)">No</button>
+      </div>
+    </div>
   </div>
 </div>
+
+
+
+
 <script>
   const fileInput = document.getElementById('file');
   
@@ -136,6 +151,33 @@
         });
     });
   });
+  
+
+
+
+
+
+
+
+  function showPopup() {
+  var popup = document.getElementById("recommendationPopup");
+  popup.style.display = "block";
+}
+
+function recommendDoctor(isRecommended) {
+  var popup = document.getElementById("recommendationPopup");
+  popup.style.display = "none";
+
+  if (isRecommended) {
+    // Perform recommendation action
+    console.log("Doctor recommended!");
+  } else {
+    // User chose not to recommend
+    console.log("Doctor not recommended.");
+  }
+}
+
+
 </script>
 
 
