@@ -6,6 +6,7 @@ const hbs = require("hbs");
 const port = process.env.PORT || 3000;
 const Register = require("./models/registers");
 const Doctor = require("./models/doctors");
+const Recommendation = require("./models/recommendation");
 const Appointment = require("./models/appointment");
 const static_path = path.join(__dirname, "../public");
 const templates_path = path.join(__dirname, "../templates/views");
@@ -334,6 +335,62 @@ app.post('/update-availability', (req, res) => {
 });
 
 
+
+
+//recommendation
+app.post('/recommend', async (req, res) => {
+  try {
+    const { doctorName, userName, recommendation } = req.body;
+    
+    // Check if a recommendation already exists for the doctor and user
+    const existingRecommendation = await Recommendation.findOne({ doctorName, userName });
+
+    if (existingRecommendation) {
+      // Update the existing recommendation
+      existingRecommendation.recommendation = recommendation;
+      await existingRecommendation.save();
+      console.log('Recommendation updated');
+    } else {
+      // Create a new recommendation
+      const recommendate = new Recommendation({
+        doctorName,
+        userName,
+        recommendation,
+      });
+      await recommendate.save();
+      console.log('Recommendation saved');
+    }
+
+    res.status(200).json({ message: 'Recommendation saved successfully' });
+  } catch (error) {
+    res.status(400).send(error);
+    console.log(error);
+  }
+});
+
+
+
+
+
+app.get('/getRecommendationStatus', async (req, res) => {
+  try {
+    // Retrieve the doctorName and userName from the request parameters or query
+    const doctorName = req.query.doctorName; // Replace with the actual parameter name
+    const userName = req.query.userName; // Replace with the actual parameter name
+
+    // Check if a recommendation exists for the doctor and user
+    const existingRecommendation = await Recommendation.findOne({ doctorName, userName });
+
+    if (existingRecommendation) {
+      res.status(200).json({ recommendationExists: true });
+    } else {
+      res.status(200).json({ recommendationExists: false });
+    }
+  } catch (error) {
+    res.status(400).send(error);
+    console.log(error);
+  }
+});
 
 
 

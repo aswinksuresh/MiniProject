@@ -35,7 +35,7 @@
   </li>
 </ul>
     </div>
-    <div class="card">
+   <div class="card">
   <img src="/css/images/profile2.png" class="profile">
   <div class="info">
     <h2>DR.{{doctor.name}}</h2>
@@ -71,7 +71,6 @@
     </div>
   </div>
 </div>
-
 
 
 
@@ -176,6 +175,71 @@ function recommendDoctor(isRecommended) {
     console.log("Doctor not recommended.");
   }
 }
+
+
+
+
+
+
+// Add an event listener to the window load event
+window.addEventListener('load', function() {
+  // Fetch the recommendation status from the server
+  fetch('/getRecommendationStatus')
+    .then(response => response.json())
+    .then(data => {
+      // Check if a recommendation exists
+      if (data.recommendationExists) {
+        // Update the button text to "Change Recommendation"
+        var recommendButton = document.querySelector('.recommend-button');
+        recommendButton.textContent = 'Change Recommendation';
+      }
+    })
+    .catch(error => {
+      console.log('Error fetching recommendation status:', error);
+    });
+});
+
+function showPopup() {
+  var popup = document.getElementById("recommendationPopup");
+  popup.style.display = "block";
+}
+
+function recommendDoctor(isRecommended) {
+  var popup = document.getElementById("recommendationPopup");
+  popup.style.display = "none";
+
+  const doctorName = '{{doctor.name}}'; // Replace with the actual doctor name
+  const userName = '{{username}}'; // Replace with the actual user name
+
+  const recommendation = isRecommended ? 'Yes' : 'No';
+
+  const data = {
+    doctorName: doctorName,
+    userName: userName,
+    recommendation: recommendation
+  };
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', '/recommend');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      console.log('Recommendation saved');
+      // Change the button text
+      var recommendButton = document.querySelector('.recommend-button');
+      recommendButton.textContent = 'Change Recommendation';
+    } else {
+      console.log('Error saving recommendation:', xhr.status);
+    }
+  };
+  xhr.send(JSON.stringify(data));
+}
+
+
+
+
+
+
 
 
 </script>
