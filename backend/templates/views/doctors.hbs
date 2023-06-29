@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/doctors.css">
     <title>Doctors</title>
+    
 </head>
 <body>
     <div class="container">
@@ -19,6 +20,7 @@
                         <h2>Dr.{{name}}</h2>
                         <h3>{{specialization}}</h3>
                         <h5>{{Experience}}</h5>
+                        <h6>{{percentage}}%<img src="/css/images/like.png" alt=""class="like"><h6>
                     </div>
                 </div>
                 </a>
@@ -26,36 +28,42 @@
         {{else}}
             <h3>No results found</h3>
         {{/if}}
+        
     </div>
     <div class="sidebar">
         <img src="/css/images/profile6.png" alt="Profile Photo">
         <h4>{{username}}</h4>
         <ul>
-  <li onclick="window.location.href='/patientview/{{userId}}'">
-    <a>My Appointments</a>
-  </li>
-  <li onclick="window.location.href='/search'">
-    <a>Search</a>
-  </li>
-  <li onclick="window.location.href='/'">
-    <a>Home</a>
-  </li>
-  <li onclick="window.location.href='/about'">
-    <a>About</a>
-  </li>
-  <li onclick="window.location.href='/contact'">
-    <a>Contact</a>
-  </li>
-</ul>
+            <li onclick="window.location.href='/patientview/{{userId}}'">
+                <a>My Appointments</a>
+            </li>
+            <li onclick="window.location.href='/search'">
+                <a>Search</a>
+            </li>
+            <li onclick="window.location.href='/'">
+                <a>Home</a>
+            </li>
+            <li onclick="window.location.href='/about'">
+                <a>About</a>
+            </li>
+            <li onclick="window.location.href='/contact'">
+                <a>Contact</a>
+            </li>
+        </ul>
     </div>
     <style>
-   body{
-    background-image: url("/css/images/homebg.png");
-    background-size: 100% 100%;  
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-}
-</style>
+        body{
+            background-image: url("/css/images/homebg.png");
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+    </style>
+                   
+   
+
+
+
 
 </body>
 </html>

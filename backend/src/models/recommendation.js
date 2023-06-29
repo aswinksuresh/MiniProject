@@ -12,6 +12,10 @@ const recommendationSchema = new mongoose.Schema({
   recommendation: {
     type: String,
     required: true
+  },
+  status: {
+    type: String,
+    required: true
   }
 });
 

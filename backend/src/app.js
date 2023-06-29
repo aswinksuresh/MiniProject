@@ -17,10 +17,14 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const moment = require('moment');
 
-// Define a Handlebars helper to format a date using Moment.js
-hbs.registerHelper('formatDate', function(date) {
-  return moment(date).format('MMM D, YYYY');
-});
+
+
+
+
+
+
+
+
 
 
 app.use(session({
@@ -115,6 +119,15 @@ app.post('/login', async (req, res) => {
         req.session.userId = userId;
         req.session.name = name;
         res.status(201).render('search', { name: name, userId: userId });
+
+
+        Recommendation.findOne({ userId: req.session.userId })
+    .then(recommendation => {
+      if (recommendation) {
+        req.session.recommendationStatus = recommendation.status;
+      }
+    
+});
       } else {
         res.render('login', { message: 'Invalid login details' });
       }
@@ -177,12 +190,44 @@ app.get('/logout', function(req, res){
         },
       ],
     });
+    
+    const recommendationCounts = await Promise.all(
+      doctors.map(async (doctor) => {
+        const { recommendCount, totalCount } = await getRecommendationCounts(doctor.name);
+        const percentage = totalCount !== 0 ? (recommendCount / totalCount) * 100 : 0;
+        console.log(recommendCount, totalCount, percentage);
+       
+        return { doctorName: doctor.name,percentage };
+       
+      })
+    );
+    console.log(recommendationCounts)
+    doctors.forEach((doctor, index) => {
+      doctor.percentage = recommendationCounts[index].percentage;
+    });
+    // Render the view with the doctors data and recommendation counts
     return res.render("doctors", { doctors, username: req.session.name, userId: req.session.userId });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });
   }
 });
+
+async function getRecommendationCounts(doctorName) {
+  try {
+    // Get the total count of recommendations for the doctor
+    const totalRecommendations = await Recommendation.countDocuments({ doctorName });
+
+    // Get the count of recommendations with 'Yes' for the doctor
+    const yesRecommendations = await Recommendation.countDocuments({ doctorName, recommendation: 'Yes' });
+
+    // Return the recommendation counts
+    return { recommendCount: yesRecommendations, totalCount: totalRecommendations };
+  } catch (error) {
+    console.log(error);
+    return { recommendCount: 0, totalCount: 0 };
+  }
+}
 
 
 
@@ -338,16 +383,40 @@ app.post('/update-availability', (req, res) => {
 
 
 //recommendation
+
+
+async function getRecommendationCounts(doctorName) {
+  try {
+    // Get the total count of recommendations for the doctor
+    const totalRecommendations = await Recommendation.countDocuments({ doctorName });
+
+    // Get the count of recommendations with 'Yes' for the doctor
+    const yesRecommendations = await Recommendation.countDocuments({ doctorName, recommendation: 'Yes' });
+
+    // Return the recommendation counts
+    return { recommendCount: yesRecommendations, totalCount: totalRecommendations };
+  } catch (error) {
+    console.log(error);
+    // In case of an error, return default values
+    return { recommendCount: 0, totalCount: 0 };
+  }
+}
+
+
+
+
+
 app.post('/recommend', async (req, res) => {
   try {
     const { doctorName, userName, recommendation } = req.body;
-    
+
     // Check if a recommendation already exists for the doctor and user
     const existingRecommendation = await Recommendation.findOne({ doctorName, userName });
 
     if (existingRecommendation) {
       // Update the existing recommendation
       existingRecommendation.recommendation = recommendation;
+      existingRecommendation.status = 'changed';
       await existingRecommendation.save();
       console.log('Recommendation updated');
     } else {
@@ -356,10 +425,13 @@ app.post('/recommend', async (req, res) => {
         doctorName,
         userName,
         recommendation,
+        status: 'changed'
       });
       await recommendate.save();
       console.log('Recommendation saved');
     }
+
+    req.session.recommendationStatus = 'changed';
 
     res.status(200).json({ message: 'Recommendation saved successfully' });
   } catch (error) {
@@ -371,26 +443,28 @@ app.post('/recommend', async (req, res) => {
 
 
 
-
-app.get('/getRecommendationStatus', async (req, res) => {
+//Count Recommendation
+async function getRecommendationCounts(doctorName) {
   try {
-    // Retrieve the doctorName and userName from the request parameters or query
-    const doctorName = req.query.doctorName; // Replace with the actual parameter name
-    const userName = req.query.userName; // Replace with the actual parameter name
+    // Get the total count of recommendations for the doctor
+    const totalRecommendations = await Recommendation.countDocuments({ doctorName });
 
-    // Check if a recommendation exists for the doctor and user
-    const existingRecommendation = await Recommendation.findOne({ doctorName, userName });
+    // Get the count of recommendations with 'Yes' for the doctor
+    const yesRecommendations = await Recommendation.countDocuments({ doctorName, recommendation: 'Yes' });
 
-    if (existingRecommendation) {
-      res.status(200).json({ recommendationExists: true });
-    } else {
-      res.status(200).json({ recommendationExists: false });
-    }
+    // Return the recommendation counts
+    return { recommendCount: yesRecommendations, totalCount: totalRecommendations };
   } catch (error) {
-    res.status(400).send(error);
     console.log(error);
+    return { recommendCount: 0, totalCount: 0 };
   }
-});
+}
+
+
+
+
+
+
 
 
 
