@@ -20,6 +20,11 @@ const moment = require('moment');
 
 
 
+app.get('/doctorview', (req, res) => {
+  // Logic to fetch doctor data and render the view
+
+  res.render('doctorview'); // Assuming you are using a template engine like Handlebars
+});
 
 
 
@@ -237,8 +242,11 @@ app.get('/appointment/:id', async (req, res) => {
   try {
     // Retrieve the doctor with the specified ID
     const doctor = await Doctor.findById(req.params.id);
+    const doctorName = doctor.name;
+    const { recommendCount, totalCount } = await getRecommendationCounts(doctorName);
+    const percentage = totalCount !== 0 ? (recommendCount / totalCount) * 100 : 0;
     // Render the doctor details page and pass the doctor data to the template
-    res.render('appointment', { doctor,username:req.session.name,userId:req.session.userId});
+    res.render('appointment', { doctor,percentage,username:req.session.name,userId:req.session.userId});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });
@@ -273,7 +281,7 @@ app.post("/appointment", upload.single('document'), async (req, res) => {
       consultationTime,
       doctorSpecialization,
     } = req.body;
-
+    
     const existingAppointment = await Appointment.findOne({
       patientName: patientName,
       doctorName: doctorName,
@@ -356,8 +364,10 @@ app.get("/doctorview/:name", async (req, res) => {
   const doctorName = req.params.name;
   try {
     const appointments = await Appointment.find({ doctorName: doctorName });
+    const { recommendCount, totalCount } = await getRecommendationCounts(doctorName);
+    const percentage = totalCount !== 0 ? (recommendCount / totalCount) * 100 : 0;
     console.log(appointments)
-    res.render("doctorview", { appointments: appointments,doctorName: doctorName });
+    res.render("doctorview", { appointments: appointments,doctorName: doctorName ,percentage});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal server error" });

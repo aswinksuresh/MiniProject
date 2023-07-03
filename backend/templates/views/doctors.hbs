@@ -20,7 +20,8 @@
                         <h2>Dr.{{name}}</h2>
                         <h3>{{specialization}}</h3>
                         <h5>{{Experience}}</h5>
-                        <h6>{{percentage}}%<img src="/css/images/like.png" alt=""class="like"><h6>
+                        <h6 class="percentage-with-icon">{{percentage}}%<img src="/css/images/like.png" alt=""class="like"><h6>
+                          
                     </div>
                 </div>
                 </a>
@@ -34,21 +35,16 @@
         <img src="/css/images/profile6.png" alt="Profile Photo">
         <h4>{{username}}</h4>
         <ul>
+            <li onclick="window.location.href='/search'">
+                <a>Home</a>
+            </li>
             <li onclick="window.location.href='/patientview/{{userId}}'">
                 <a>My Appointments</a>
             </li>
-            <li onclick="window.location.href='/search'">
-                <a>Search</a>
-            </li>
-            <li onclick="window.location.href='/'">
-                <a>Home</a>
-            </li>
-            <li onclick="window.location.href='/about'">
-                <a>About</a>
-            </li>
-            <li onclick="window.location.href='/contact'">
-                <a>Contact</a>
-            </li>
+            <li onclick="window.location.href='/logout'">
+    <a>Log Out</a>
+  </li>
+           
         </ul>
     </div>
     <style>
@@ -59,7 +55,18 @@
             background-repeat: no-repeat;
         }
     </style>
-                   
+      <script>
+        function showHoverText(element) {
+  const hoverText = element.querySelector('.hover-text');
+  hoverText.style.display = 'block';
+}
+
+function hideHoverText(element) {
+  const hoverText = element.querySelector('.hover-text');
+  hoverText.style.display = 'none';
+}
+
+      </script>             
    
 
 

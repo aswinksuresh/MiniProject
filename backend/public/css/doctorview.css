@@ -15,7 +15,36 @@ body {
   color: #fff; 
 }
 
-.sidebar img {
+.hover-text {
+  display: none;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #63c1f1;
+  color: #110860;
+  padding: 5px;
+  border-radius: 5px;
+  width: 155px;
+}
+
+.percentage-with-icon:hover .hover-text {
+  display: block;
+}
+h4{
+  text-align:center;
+  margin: 0;
+  position: relative;
+  top: 10px;
+}
+.like{
+  width: 20px;
+  height:20px;
+  position: relative;
+  top: 5px;
+  left: 3px;
+}
+.profile {
   display: block;
   margin: 0 auto;
   width: 120px;

@@ -20,18 +20,21 @@
     </style> 
       
     <div class="sidebar">
-        <img src="/css/images/profile6.png" alt="Profile Photo">
+        <img src="/css/images/profile6.png" alt="Profile Photo" class="profile">
         <h3>{{doctorName}}</h3>
+        <h4 class="percentage-with-icon">{{percentage}}%<img src="/css/images/like.png" alt=""class="like">
+        <span class="hover-text">{{percentage}}% People Recommends You </span>
+        </h4>
         <label class="switch" >
              <input type="checkbox" id="availability-toggle">
             <span class="slider round"></span>
         </label>
   <p id="availability-status"></p>
         <ul>
-            
-            <li onclick="window.location.href='/'">
+           
+            <li onclick="window.location.href='/doctorview'">
     <a>Home</a>
-            <li onclick="window.location.href"><a>Contact</a></li>
+            <li onclick="window.location.href='/contact'"><a>Contact</a></li>
            <li onclick="window.location.href='/logout'">
     <a>Log Out</a>
   </li>

@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="/css/appointment.css">
-
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
     <title>appointment</title>
 </head>
 <body>
@@ -18,45 +19,46 @@
         <img src="/css/images/profile6.png" alt="Profile Photo">
         <h3>{{username}}</h3>
         <ul>
-  <li onclick="window.location.href='/patientview/{{userId}}'">
-    <a>My Appointments</a>
+            <li onclick="window.location.href='/search'">
+                <a>Home</a>
+            </li>
+            <li onclick="window.location.href='/patientview/{{userId}}'">
+                <a>My Appointments</a>
+            </li>
+            <li onclick="window.location.href='/logout'">
+    <a>Log Out</a>
   </li>
-  <li onclick="window.location.href='/search'">
-    <a>Search</a>
-  </li>
-  <li onclick="window.location.href='/'">
-    <a>Home</a>
-  </li>
-  <li onclick="window.location.href='/about'">
-    <a>About</a>
-  </li>
-  <li onclick="window.location.href='/contact'">
-    <a>Contact</a>
-  </li>
-</ul>
+           
+        </ul>
     </div>
    <div class="card">
   <img src="/css/images/profile2.png" class="profile">
+ <button class="p-button">
+  <a>{{percentage}}%</a>
+  <i class="fas fa-thumbs-up"></i>
+</button>
   <div class="info">
     <h2>DR.{{doctor.name}}</h2>
     <h3>{{doctor.specialization}}</h3>
     <h3>{{doctor.location}}</h3>
     <button class="pill-button" onclick="redirectToLocation()">
-      <i class="fas fa-map-marker-alt"></i>
+      <img src="/css/images/map1.png" alt=""class="map">
       View Location
     </button>
-    <h3>{{doctor.time}}</h3>
+    <h4>{{doctor.time}}</h4>
+   
     <div class="picker">
       Select date
       <input type="date" id="date-picker">
     </div>
     <div class="recommendation-container">
-      <button class="recommend-button" onclick="showPopup()">Recommend Doctor</button>
+      <button class="recommend-button" onclick="showPopup()">  <i class="fas fa-thumbs-up"></i> Recommend Doctor</button>
     </div>
     <form id="appointmentForm" enctype="multipart/form-data">
       <div class="file-upload">
-        <label for="file">Upload Document:</label>
+        <label  for="file">Upload Document:</label>
         <input type="file" id="file" name="document" accept=".pdf, .jpg, .jpeg, .png">
+        <p> *fileformat of .pdf, .jpg, .jpeg, .png</p>
       </div>
       <button class="button" type="submit">Book Appointment</button>
     </form>
