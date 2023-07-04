@@ -1,8 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+   <script>
+  // Define the formatDate helper function
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString(undefined, options);
+  }
+
+  // Retrieve the template source from your HTML or load it via AJAX
+  const templateSource = document.getElementById('your-template-id').innerHTML;
+
+  // Compile the template
+  const template = Handlebars.compile(templateSource);
+
+  // Prepare the data for rendering
+  const data = {
+    date: "Fri Jul 14 2023 05:30:00 GMT+0530 (India Standard Time)"
+  };
+
+  // Format the date using the helper function
+  data.formattedDate = formatDate(data.date);
+
+  // Render the template with the data
+  const renderedTemplate = template(data);
+
+  // Insert the rendered template into the DOM
+  document.getElementById('output').innerHTML = renderedTemplate;
+</script>
+
 
 
     <link rel="stylesheet" href="/css/doctorview.css">
@@ -11,115 +41,145 @@
 </head>
 <body>
     <style>
-        body{
-         background-image: url("/css/images/home6.jpg");
-         background-size: 100% 100%;
-         background-attachment: fixed;
-         background-repeat: no-repeat;
+        body {
+            background-image: url("/css/images/home6.jpg");
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
         }
-    </style> 
-      
+    </style>
+
     <div class="sidebar">
         <img src="/css/images/profile6.png" alt="Profile Photo" class="profile">
         <h3>{{doctorName}}</h3>
-        <h4 class="percentage-with-icon">{{percentage}}%<img src="/css/images/like.png" alt=""class="like">
-        <span class="hover-text">{{percentage}}% People Recommends You </span>
+        <h4 class="percentage-with-icon">{{percentage}}%<img src="/css/images/like.png" alt="" class="like">
+            <span class="hover-text">{{percentage}}% People Recommends You</span>
         </h4>
-        <label class="switch" >
-             <input type="checkbox" id="availability-toggle">
+        <label class="switch">
+            <input type="checkbox" id="availability-toggle">
             <span class="slider round"></span>
         </label>
-  <p id="availability-status"></p>
+        <p id="availability-status"></p>
         <ul>
-           
-            <li onclick="window.location.href='/doctorview'">
-    <a>Home</a>
-            <li onclick="window.location.href='/contact'"><a>Contact</a></li>
-           <li onclick="window.location.href='/logout'">
-    <a>Log Out</a>
-  </li>
-             
+            <li>
+                <a>Home</a>
+            </li>
+            <li onclick="window.location.href='/contact'">
+                <a>Contact</a>
+            </li>
+            <li onclick="window.location.href='/logout'">
+                <a>Log Out</a>
+            </li>
         </ul>
     </div>
 
     <div class="appointments">
         <h2>Upcoming Appointments</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Patient Name</th>
-      <th>Patient Description</th>
-      <th>Token</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each appointments}}
-    <tr>
-      <td>{{formatDate this.date}}</td>
-      <td>{{this.time}}</td>
-      <td>{{this.patientName}}</td>
-      <td>
-        {{#if this.fileUrl}}
-       <button onclick="openDocument('{{this.fileUrl}}')" class="view-document-button">View Document</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Patient Name</th>
+                    <th>Patient Description</th>
+                    <th>Token</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each appointments}}
+                <tr>
+               <td data-date="{{ this.date }}"></td>
 
-        <div id="pdf-container"></div>
-        {{else}}
-        No Document
-        {{/if}}
-      </td>
-      <td>{{this.token}}</td>
-      <td>
-        <form action="/cancel-appointment/{{this._id}}" method="POST">
-          <button class="cancel-button" data-appointment-id="{{this._id}}">Complete</button>
-        </form>
-      </td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
-</div>
+                    <td>{{this.time}}</td>
+                    <td>{{this.patientName}}</td>
+                    <td>
+                        {{#if this.fileUrl}}
+                        <button onclick="openDocument('{{this.fileUrl}}')" class="view-document-button">View Document</button>
+                        <div id="pdf-container"></div>
+                        {{else}}
+                        No Document
+                        {{/if}}
+                    </td>
+                    <td>{{this.token}}</td>
+                    <td>
+                        <form action="/cancel-appointment/{{this._id}}" method="POST">
+                            <button class="cancel-button" data-appointment-id="{{this._id}}">Complete</button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-    
-<div id="pdf-container"></div>
+    <script>
+      
+  // Define the formatDate function
+  // Your JavaScript code
 
-       <script>
-        console.log('Script loaded!');
-        
-        function formatDate(date) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const formattedDate = new Date(date).toLocaleDateString('en-US', options);
-            return formattedDate;
-        }
+// Get all the date elements in the HTML
+const dateElements = document.querySelectorAll('[data-date]');
 
-$(document).ready(function() {
-  $('body').on('click', '.cancel-button', function(event) {
-    event.preventDefault();
-
-    const appointmentId = $(this).data('appointment-id');
-    const row = $(this).closest('tr');
-
-    $.ajax({
-      type: 'POST',
-      url: '/cancel-appointment/' + appointmentId,
-      success: function(appointments) {
-        // Remove the canceled appointment row from the table
-        row.remove();
-
-        // Optional: Perform any other necessary updates using the updated appointment list
-      },
-      error: function(err) {
-        console.log(err);
-      }
-    });
-  });
+// Iterate over each date element and format the date
+dateElements.forEach(element => {
+  const dateString = element.dataset.date;
+  const formattedDate = formatDate(dateString);
+  element.textContent = formattedDate;
 });
 
-$(document).ready(function() {
+// Function to format the date
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleDateString(undefined, options);
+}
+
+
+        $(document).ready(function() {
+            // Retrieve the availability status from local storage
+            var savedAvailability = localStorage.getItem('availability');
+            var initialAvailability = savedAvailability ? JSON.parse(savedAvailability) : false;
+
+            // Set the initial state of the toggle button based on the availability status
+            $('#availability-toggle').prop('checked', initialAvailability);
+
+            // Add event listener to the toggle switch
+            $('#availability-toggle').on('change', function() {
+                // Call function to update availability status and display on page
+                updateAvailability();
+            });
+
+            function updateAvailability() {
+                // Get current availability status
+                var available = $('#availability-toggle').prop('checked');
+                console.log('Availability status:', available);
+                // Get doctor's name from template
+                var doctorName = '{{doctorName}}';
+                console.log('Doctor name:', doctorName);
+                // Update availability status in database
+                $.ajax({
+                    method: 'POST',
+                    url: '/update-availability',
+                    data: { available: available, doctorName: doctorName }
+                }).done(function(response) {
+                    // Display availability status on page
+                    if (available) {
+                        $('#availability-status').text('Available');
+                    } else {
+                        $('#availability-status').text('Unavailable');
+                    }
+                    // Save the availability status to local storage
+                    localStorage.setItem('availability', JSON.stringify(available));
+                });
+            }
+
+            // Call the updateAvailability function on page load
+            updateAvailability();
+        });
+           $(document).ready(function() {
   // Add event listener to the cancel button
   document.querySelectorAll(".cancel-button").forEach((btn) => {
     btn.addEventListener("click", async (event) => {
@@ -149,70 +209,24 @@ $(document).ready(function() {
 
 
 
+        async function openDocument(fileUrl) {
+            const width = 800; // Width of the popup window
+            const height = 600; // Height of the popup window
+            const left = (window.innerWidth - width) / 2; // Calculate the left position
+            const top = (window.innerHeight - height) / 2; // Calculate the top position
+
+            // Open a new popup window
+            const popupWindow = window.open(fileUrl, '_blank', `width=${width}, height=${height}, left=${left}, top=${top}`);
+
+            // Focus the popup window
+            popupWindow.focus();
+        }
 
 
 
 
 
 
-  $(document).ready(function() {
-  // Retrieve the availability status from local storage
-  var savedAvailability = localStorage.getItem('availability');
-  var initialAvailability = savedAvailability ? JSON.parse(savedAvailability) : false;
-
-  // Set the initial state of the toggle button based on the availability status
-  $('#availability-toggle').prop('checked', initialAvailability);
-
-  // Add event listener to the toggle switch
-  $('#availability-toggle').on('change', function() {
-    // Call function to update availability status and display on page
-    updateAvailability();
-  });
-
-  function updateAvailability() {
-    // Get current availability status
-    var available = $('#availability-toggle').prop('checked');
-    console.log('Availability status:', available);
-    // Get doctor's name from template
-    var doctorName = '{{doctorName}}';
-    console.log('Doctor name:', doctorName);
-    // Update availability status in database
-    $.ajax({
-      method: 'POST',
-      url: '/update-availability',
-      data: { available: available, doctorName: doctorName }
-    }).done(function(response) {
-      // Display availability status on page
-      if (available) {
-        $('#availability-status').text('Available');
-      } else {
-        $('#availability-status').text('Unavailable');
-      }
-      // Save the availability status to local storage
-      localStorage.setItem('availability', JSON.stringify(available));
-    });
-  }
-
-  // Call the updateAvailability function on page load
-  updateAvailability();
-});
-
-
-
-async function openDocument(fileUrl) {
-  const width = 800; // Width of the popup window
-  const height = 600; // Height of the popup window
-  const left = (window.innerWidth - width) / 2; // Calculate the left position
-  const top = (window.innerHeight - height) / 2; // Calculate the top position
-  
-  // Open a new popup window
-  const popupWindow = window.open(fileUrl, '_blank', `width=${width}, height=${height}, left=${left}, top=${top}`);
-  
-  // Focus the popup window
-  popupWindow.focus();
-}
-
-
-   </script>
+    </script>
 </body>
 </html>

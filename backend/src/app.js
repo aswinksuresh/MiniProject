@@ -20,11 +20,7 @@ const moment = require('moment');
 
 
 
-app.get('/doctorview', (req, res) => {
-  // Logic to fetch doctor data and render the view
 
-  res.render('doctorview'); // Assuming you are using a template engine like Handlebars
-});
 
 
 
@@ -103,7 +99,6 @@ app.get("/search",(req, res) => {
 app.get("/login", (req, res)=>{
     res.render("login");
 })
-
 
 /*app.get("/doctors", (req, res)=>{
   const name = req.session.name;

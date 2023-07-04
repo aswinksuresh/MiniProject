@@ -23,7 +23,7 @@
             <li onclick="window.location.href='/search'">
                 <a>Home</a>
             </li>
-            <li onclick="window.location.href='/patientview/{{userId}}'">
+            <li >
                 <a>My Appointments</a>
             </li>
             <li onclick="window.location.href='/logout'">
@@ -48,7 +48,7 @@
             <tbody>
                 {{#each appointments}}
 <tr>
-  <td>{{formatDate this.date}}</td>
+   <td data-date="{{ this.date }}"></td>
   <td>{{this.time}}</td>
   <td>{{this.doctorName}}</td>
        <td>{{this.token}}</td>
@@ -72,6 +72,31 @@
     </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+// Your JavaScript code
+
+// Get all the date elements in the HTML
+const dateElements = document.querySelectorAll('[data-date]');
+
+// Iterate over each date element and format the date
+dateElements.forEach(element => {
+  const dateString = element.dataset.date;
+  const formattedDate = formatDate(dateString);
+  element.textContent = formattedDate;
+});
+
+// Function to format the date
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleDateString(undefined, options);
+}
+
+
+
+
+
+
+
 $(document).ready(function() {
   $('body').on('click', '.cancel-button', function(event) {
     event.preventDefault();
@@ -118,6 +143,12 @@ $(document).ready(function() {
     });
   });
 });
+
+
+
+
+
+
   </script>
 </body>
 </html>
